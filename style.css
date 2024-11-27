@@ -1,14 +1,24 @@
-body {
-    font-family: 'Roboto', sans-serif;
+:root {
+    --primary-color: #03aa87; /* Light Green */
+    --secondary-color: #02665a; /* Dark Green */
+    --primary-caledonia: #dca123;
+    --secondary-caledonia: #005898;
+    --text-color: #333; /* Black */
+    --background-color: #f0f0f0; /* Light Grey */
+}
+
+/* Apply the theme to the website */
+body { 
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
 }
 
 header {
-    background-color: #03aa87;
-    color: #ffffff;
+    background-color: var(--primary-color);
+    color: var(--text-color);
     padding: 20px;
     text-align: center;
 }
@@ -19,7 +29,7 @@ header h1 {
 }
 
 nav {
-    background-color: #165144;
+    background-color: var(--secondary-color);
     color: #fff;
     padding: 10px;
     text-align: center;
@@ -86,10 +96,6 @@ nav a:hover {
     }
 }
 
-
-
-
-
 .content {
     padding: 20px;
 }
@@ -99,18 +105,18 @@ nav a:hover {
 }
 
 .section h3 {
-    color: #03aa87;
-    border-bottom: 2px solid #165144;
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 5px;
 }
 
 footer {
-    background-color: #165144;
+    background-color: var(--primary-color);
     color: #ffffff;
     text-align: center;
     padding: 20px;
     font-size: 1rem;
-    border-top: 2px solid #03aa87;
+    border-top: 2px solid var(--secondary-color);
     position: relative;
 }
 
@@ -130,7 +136,7 @@ footer p::after {
     display: block;
     width: 60px;
     height: 2px;
-    background-color: #03aa87;
+    background-color: var(--secondary-color);
     margin: 20px auto 0;
 }
 
