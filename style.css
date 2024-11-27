@@ -48,6 +48,7 @@ nav a:hover {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     flex-direction: column;
     position: relative;
+    width: 100%; /* Ensure the hero section takes up full width */
 }
 
 .hero h2 {
@@ -55,6 +56,7 @@ nav a:hover {
     margin: 0;
     z-index: 1;
     text-align: center; /* Center the text */
+    width: 100%; /* Ensure the text width takes up the full available width */
 }
 
 /* For larger screens */
@@ -69,8 +71,8 @@ nav a:hover {
     }
 }
 
-/* For mobile screens */
-@media (max-width: 768px) {
+/* For mobile screens (using pointer: coarse for touch interfaces) */
+@media (pointer: coarse) {
     .hero h2 {
         font-size: 2.5rem; /* Adjust font size for mobile */
         line-height: 1.2; /* Make the line-height more compact */
@@ -79,8 +81,11 @@ nav a:hover {
     .hero h2 span {
         display: block; /* Stack the text elements */
         font-size: 2rem; /* Adjust the size for the second line */
+        width: 100%; /* Ensure spans take up the full width */
+        text-align: center; /* Center the stacked text */
     }
 }
+
 
 
 
