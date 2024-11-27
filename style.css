@@ -67,12 +67,31 @@ nav a:hover {
 }
 
 footer {
-    background-color: #03aa87;
-    color: #fff;
+    background-color: #165144;
+    color: #ffffff;
     text-align: center;
-    padding: 10px;
+    padding: 20px;
+    font-size: 1rem;
+    border-top: 2px solid #03aa87;
+    position: relative;
+}
+
+footer .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 footer p {
     margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+footer p::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: #03aa87;
+    margin: 20px auto 0;
 }
