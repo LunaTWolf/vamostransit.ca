@@ -39,17 +39,36 @@ nav a:hover {
 .hero {
     background-size: cover;
     background-position: center;
-    height: 400px;
+    height: 60vh; /* Set a maximum height for the hero image */
+    max-height: 600px; /* Optional: You can control the image's maximum height */
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    flex-direction: column;
+    position: relative;
 }
 
 .hero h2 {
-    font-size: 2.5rem;
+    font-size: 3rem;
+    margin: 0;
+    z-index: 1;
 }
+
+/* For larger screens, adjust font size and height */
+@media (min-width: 768px) {
+    .hero {
+        height: 50vh; /* Reduce the height even further for larger screens */
+        max-height: 500px; /* Optional: Fine-tune the max-height */
+    }
+
+    .hero h2 {
+        font-size: 4rem;
+    }
+}
+
+
 
 .content {
     padding: 20px;
@@ -123,4 +142,3 @@ footer p::after {
 #service-alert strong {
     color: #d9534f; /* Red color for important text */
 }
-
