@@ -1,14 +1,24 @@
-body {
-    font-family: 'Roboto', sans-serif;
+:root {
+    --primary-color: #03aa87; /* Light Green */
+    --secondary-color: #02665a; /* Dark Green */
+    --primary-caledonia: #dca123;
+    --secondary-caledonia: #005898;
+    --text-color: #333; /* Black */
+    --background-color: #f0f0f0; /* Light Grey */
+}
+
+/* Apply the theme to the website */
+body { 
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
 }
 
 header {
-    background-color: #03aa87;
-    color: #ffffff;
+    background-color: var(--primary-color);
+    color: var(--text-color);
     padding: 20px;
     text-align: center;
 }
@@ -19,7 +29,7 @@ header h1 {
 }
 
 nav {
-    background-color: #165144;
+    background-color: var(--secondary-color);
     color: #fff;
     padding: 10px;
     text-align: center;
@@ -37,19 +47,53 @@ nav a:hover {
 }
 
 .hero {
-    background-image: url('https://media.discordapp.net/attachments/1233928696512122983/1305272680966127656/image.png?ex=67478569&is=674633e9&hm=d517b55f665aba99ab12244f7c31d739345c2e65cf738fde3bcc9f8d9b5dbe22&=&format=webp&quality=lossless&width=1099&height=671');
     background-size: cover;
     background-position: center;
-    height: 400px;
+    height: 60vh; /* Set a maximum height for the hero image */
+    max-height: 600px; /* Optional: Control the maximum height of the image */
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    flex-direction: column;
+    position: relative;
+    width: 100%; /* Ensure the hero section takes up full width */
 }
 
 .hero h2 {
-    font-size: 2.5rem;
+    font-size: 3rem;
+    margin: 0;
+    z-index: 1;
+    text-align: center; /* Center the text */
+    width: 100%; /* Ensure the text width takes up the full available width */
+}
+
+/* For larger screens */
+@media (min-width: 768px) {
+    .hero {
+        height: 50vh; /* Reduce the height for larger screens */
+        max-height: 500px; /* Optional: Fine-tune the max-height */
+    }
+
+    .hero h2 {
+        font-size: 4rem;
+    }
+}
+
+/* For mobile screens (using pointer: coarse for touch interfaces) */
+@media (pointer: coarse) {
+    .hero h2 {
+        font-size: 2.5rem; /* Adjust font size for mobile */
+        line-height: 1.2; /* Make the line-height more compact */
+    }
+
+    .hero h2 span {
+        display: block; /* Stack the text elements */
+        font-size: 2rem; /* Adjust the size for the second line */
+        width: 100%; /* Ensure spans take up the full width */
+        text-align: center; /* Center the stacked text */
+    }
 }
 
 .content {
@@ -61,18 +105,18 @@ nav a:hover {
 }
 
 .section h3 {
-    color: #03aa87;
-    border-bottom: 2px solid #165144;
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 5px;
 }
 
 footer {
-    background-color: #165144;
+    background-color: var(--primary-color);
     color: #ffffff;
     text-align: center;
     padding: 20px;
     font-size: 1rem;
-    border-top: 2px solid #03aa87;
+    border-top: 2px solid var(--secondary-color);
     position: relative;
 }
 
@@ -92,6 +136,35 @@ footer p::after {
     display: block;
     width: 60px;
     height: 2px;
-    background-color: #03aa87;
+    background-color: var(--secondary-color);
     margin: 20px auto 0;
+}
+
+#service-alert-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.service-alert-heading {
+    font-size: 2rem; /* Large size for the heading */
+    font-weight: bold;
+    color: #d9534f; /* Red color for emphasis */
+    margin-bottom: 15px;
+}
+
+#service-alert {
+    background-color: #ffcc00; /* Yellow background for attention */
+    color: #333; /* Dark text for readability */
+    padding: 15px;
+    margin: 0 auto;
+    border: 1px solid #e6a800;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    max-width: 800px; /* Limit the width of the alert box */
+    text-align: center;
+}
+
+#service-alert strong {
+    color: #d9534f; /* Red color for important text */
 }
