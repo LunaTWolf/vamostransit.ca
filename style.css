@@ -40,7 +40,7 @@ nav a:hover {
     background-size: cover;
     background-position: center;
     height: 60vh; /* Set a maximum height for the hero image */
-    max-height: 600px; /* Optional: You can control the image's maximum height */
+    max-height: 600px; /* Optional: Control the maximum height of the image */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -54,12 +54,13 @@ nav a:hover {
     font-size: 3rem;
     margin: 0;
     z-index: 1;
+    text-align: center; /* Center the text */
 }
 
-/* For larger screens, adjust font size and height */
+/* For larger screens */
 @media (min-width: 768px) {
     .hero {
-        height: 50vh; /* Reduce the height even further for larger screens */
+        height: 50vh; /* Reduce the height for larger screens */
         max-height: 500px; /* Optional: Fine-tune the max-height */
     }
 
@@ -67,6 +68,20 @@ nav a:hover {
         font-size: 4rem;
     }
 }
+
+/* For mobile screens */
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 2.5rem; /* Adjust font size for mobile */
+        line-height: 1.2; /* Make the line-height more compact */
+    }
+
+    .hero h2 span {
+        display: block; /* Stack the text elements */
+        font-size: 2rem; /* Adjust the size for the second line */
+    }
+}
+
 
 
 
