@@ -1,0 +1,1 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1b1c8ddc-0ae9-42eb-9125-15228c15fb0b/deploy-status)](https://app.netlify.com/sites/vamostransit/deploys)
