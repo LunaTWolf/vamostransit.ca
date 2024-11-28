@@ -7,13 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" type="image/png" href="https://vamostransit.ca/vamos.png">
+    <link rel="icon" href="https://vamostransit.ca/vamos48.ico" type="image/x-icon">
     <!-- Basic Metadata -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="VAMOS Transit - Green Initiatives">
     <meta name="description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
     <meta name="author" content="VAMOS Transit">
-    <meta name="keywords" content="Transit, Caledonia, VAMOS Transit, Public Transport, Cayuga, Roblox">
+    <meta name="keywords" content="Transit, Caledonia, VAMOS, Transit, Public, Transport, Cayuga, Roblox, Bus, Simulator, Green Initiatives, Green, Initiatives">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Metadata -->
@@ -31,20 +32,14 @@
     <meta name="twitter:image" content="https://vamostransit.ca/defaultwide2.png"> <!-- Replace with your image URL -->
 </head>
 <body>
-    <header>
-        <img src="https://vamostransit.ca/caledonia.png" class="logo caledonia-logo"  alt="Caledonia Transit Logo" style="width: 50px; height: 50px; margin-right: 10px; margin-bottom: 10px;">
-        <img src="https://vamostransit.ca/vamos.png" class="logo vamos-logo"  alt="VAMOS Transit Logo" style="width: 50px; height: 50px; margin-bottom: 10px;">
-        <h1>VAMOS Transit</h1>
-    </header>
-
-    <nav>
-        <a href="https://vamostransit.ca/#about">About</a>
-        <a href="https://vamostransit.ca/green">Green Initiatives</a>
-        <a href="https://vamostransit.ca/#features">Features</a>
-        <a href="https://vamostransit.ca/#routes">Routes</a>
-        <a href="https://vamostransit.ca/#contact">Contact</a>
-        <a href="https://docs.google.com/spreadsheets/d/1_Iw9hggRpQTbDtXm43OEQjxsWXEEQaOd4-n1PvV7nFI/edit?usp=sharing">Codebook</a>
-    </nav>
+    <div id="header-container"></div>
+    <script>
+        fetch('https://vamostransit.ca/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+    </script>
 
     <div class="hero" style="background-image: url('https://media.discordapp.net/attachments/1233928696512122983/1300152221127807007/image.png?ex=6747599d&is=6746081d&hm=e9f67ba5f2c4b18ab7be03136aa1bd6bf34d43cf20e78dacd2932a224853075a&=&format=webp&quality=lossless&width=1006&height=554');">
         <center><h2>Leading the Way to a Greener Future</h2></center>
@@ -85,7 +80,10 @@
     </div>
 
     <footer>
-        <p>"vamostransit.ca" is not owned by or affiliated with Vamos Transit Simulator.</p>
+        <div class="footer-content">
+            <h4 style="margin-bottom: 2px;">"vamostransit.ca" is not owned by or affiliated with Vamos Transit Simulator.</h4>
+            <p style="padding-top: -10px;"><strong>Work with Vamos? Email us here: admin@vamostransit.ca</strong></p>
+        </div>
     </footer>
 </body>
 </html>
