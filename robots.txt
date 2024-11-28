@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /dev/
+Sitemap: https://vamostransit.ca/sitemap.xml
