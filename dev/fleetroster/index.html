@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title id="pageTitle">VAMOS Transit</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://vamostransit.ca/style.css">
+        <link rel="icon" href="https://vamostransit.ca/vamos48.ico" type="image/x-icon">
+    
+        <!-- Basic Metadata -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="VAMOS Transit - ">
+        <meta name="description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
+        <meta name="author" content="VAMOS Transit">
+        <meta name="keywords" content="Transit, Caledonia, VAMOS Transit, Public Transport, Cayuga, Roblox">
+    
+        <!-- Open Graph Metadata -->
+        <meta property="og:title" content="VAMOS Transit - ">
+        <meta property="og:description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
+        <meta property="og:image" content="https://vamostransit.ca/defaultwide.png"> <!-- Replace with your image URL -->
+        <meta property="og:url" content="https://vamostransit.ca">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="VAMOS Transit">
+    
+        <!-- Twitter Card Metadata -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="VAMOS Transit - ">
+        <meta name="twitter:description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
+        <meta name="twitter:image" content="https://vamostransit.ca/defaultwide.png"> <!-- Replace with your image URL -->
+    
+        <script>
+            // Define the variable for the site title
+            const siteTitle = "VAMOS Transit - Fleet Roster";
+    
+            // Update all instances of the site title
+            document.title = siteTitle;
+            document.querySelector('meta[name="title"]').setAttribute('content', siteTitle);
+            document.querySelector('meta[property="og:title"]').setAttribute('content', siteTitle);
+            document.querySelector('meta[name="twitter:title"]').setAttribute('content', siteTitle);
+        </script>
+    </head>
+    
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+    <div id="header-container"></div>
+    <script>
+        fetch('https://vamostransit.ca/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+    </script>
+    
+    <div class="hero" style="background-image: url('https://media.discordapp.net/attachments/1223312984906928292/1308956439964028978/image.png?ex=674865ee&is=6747146e&hm=24fd4594345161859d28fd47fcba6c8ea4b1c37dcce97ed951a8b93a7c81093c&=&format=webp&quality=lossless&width=1070&height=553');">
+        <div class="hero-text">
+            <center><h2><span>Fleet Roster</span></h2></center>
+        </div>
+    </div>
+
+
+
+
+    <div class="content" style="flex: 1;"></div>
+    <footer>
+        <div class="footer-content">
+            <h4 style="margin-bottom: 2px;">"vamostransit.ca" is not owned by or affiliated with Vamos Transit Simulator.</h4>
+            <p style="padding-top: -10px;"><strong>Work with Vamos? Email us here: admin@vamostransit.ca</strong></p>
+        </div>
+    </footer>
+    
+</body>
+</html>
