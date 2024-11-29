@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to Roblox...</title>
+    <script>
+        function redirectToRobloxGame() {
+            const placeID = "15057336058"; // Roblox Game Place ID
+            const robloxProtocolURL = `roblox://placeID=${placeID}`;
+            const fallbackWebURL = "https://www.roblox.com/games/15057336058/VAMOS-Transit-Simulator";
+            const mainWebsiteURL = "https://vamostransit.ca/";
+
+            // Try opening Roblox
+            window.location.href = robloxProtocolURL;
+
+            // Fallback if Roblox is not installed
+            setTimeout(() => {
+                window.location.href = fallbackWebURL;
+            }, 4000); // 4 seconds timeout to allow Roblox client to open
+
+            // Redirect to the main website if Roblox opens successfully
+            window.addEventListener("blur", () => {
+                setTimeout(() => {
+                    window.location.href = mainWebsiteURL;
+                }, 1000); // Slight delay to ensure user focus changed to Roblox
+            });
+        }
+
+        // Call the redirect function on page load
+        window.onload = redirectToRobloxGame;
+    </script>
+</head>
+<body>
+    <h1>Opening Roblox...</h1>
+    <p>If it doesn't open automatically, <a href="roblox://placeID=15057336058">click here to join the game manually</a>.</p>
+    <p>Click <a href="https://www.roblox.com/games/15057336058/VAMOS-Transit-Simulator">here</a> to open the roblox page.</p>
+</body>
+</html>
