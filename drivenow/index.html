@@ -17,7 +17,7 @@
             // Fallback if Roblox is not installed
             setTimeout(() => {
                 window.location.href = fallbackWebURL;
-            }, 4000); // 4 seconds timeout to allow Roblox client to open
+            }, 10000); // 10 seconds timeout to allow Roblox client to open
 
             // Redirect to the main website if Roblox opens successfully
             window.addEventListener("blur", () => {
