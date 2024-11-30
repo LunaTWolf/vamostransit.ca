@@ -371,24 +371,35 @@
                 return;
             }
     
-            const numericValue = parseInt(searchValue, 10);
+            if (searchValue.length === 4 && !isNaN(searchValue)) {
+                const numericValue = parseInt(searchValue, 10);
+                rows.forEach(row => {
+                    const range = row.cells[0].textContent.split('-').map(Number);
+                    if (numericValue >= range[0] && numericValue <= range[1]) {
+                        row.style.display = '';
+                        found = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            } else {
+                rows.forEach(row => {
+                    const range = row.cells[0].textContent.split('-');
+                    const start = range[0];
     
-            rows.forEach(row => {
-                const range = row.cells[0].textContent.split('-').map(Number);
-                const start = range[0];
-                const end = range[1];
-    
-                if (start.startsWith(searchValue) || (!isNaN(numericValue) && numericValue >= start && numericValue <= end)) {
-                    row.style.display = '';
-                    found = true;
-                } else {
-                    row.style.display = 'none';
-                }
-            });
+                    if (start.startsWith(searchValue)) {
+                        row.style.display = '';
+                        found = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
     
             document.getElementById('noResults').style.display = found ? 'none' : '';
         });
     </script>
+    
     
     
     
