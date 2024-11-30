@@ -371,11 +371,14 @@
                 return;
             }
     
-            rows.forEach(row => {
-                const range = row.cells[0].textContent.split('-');
-                const start = range[0];
+            const numericValue = parseInt(searchValue, 10);
     
-                if (start.startsWith(searchValue)) {
+            rows.forEach(row => {
+                const range = row.cells[0].textContent.split('-').map(Number);
+                const start = range[0];
+                const end = range[1];
+    
+                if (start.startsWith(searchValue) || (!isNaN(numericValue) && numericValue >= start && numericValue <= end)) {
                     row.style.display = '';
                     found = true;
                 } else {
