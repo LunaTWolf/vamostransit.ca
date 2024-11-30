@@ -99,7 +99,14 @@
     </style>
     
     <h1>Fleet Number Search</h1>
-    <input type="number" id="searchBar" placeholder="Enter fleet number...">
+    <div id="controls">
+        <input type="text" id="searchBar" placeholder="Enter fleet number...">
+        <div id="checkboxes">
+            <label><input type="checkbox" class="companyFilter" value="VAMOS Transit"> VAMOS Transit</label>
+            <label><input type="checkbox" class="companyFilter" value="Caledonia Transit"> Caledonia Transit</label>
+            <label><input type="checkbox" class="companyFilter" value="Cayuga Transit"> Cayuga Transit</label>
+        </div>
+    </div>
     <p id="noResults">No buses found for the entered fleet number.</p>
 
     <table id="fleetTable">
@@ -360,44 +367,51 @@
     </table>
 
     <script>
-        document.getElementById('searchBar').addEventListener('input', function () {
-            const searchValue = this.value.trim();
-            const rows = document.querySelectorAll('#fleetTable tbody tr');
+        const searchBar = document.getElementById('searchBar');
+        const checkboxes = document.querySelectorAll('.companyFilter');
+        const noResults = document.getElementById('noResults');
+        const rows = document.querySelectorAll('#fleetTable tbody tr');
+    
+        function filterRows() {
+            const searchValue = searchBar.value.trim();
+            const selectedCompanies = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
             let found = false;
     
-            if (searchValue === "") {
-                rows.forEach(row => row.style.display = '');
-                document.getElementById('noResults').style.display = 'none';
-                return;
-            }
+            rows.forEach(row => {
+                const fleetRange = row.cells[0].textContent.split('-');
+                const company = row.cells[1].textContent;
+                const start = fleetRange[0];
+                const end = fleetRange[1];
     
-            if (searchValue.length === 4 && !isNaN(searchValue)) {
-                const numericValue = parseInt(searchValue, 10);
-                rows.forEach(row => {
-                    const range = row.cells[0].textContent.split('-').map(Number);
-                    if (numericValue >= range[0] && numericValue <= range[1]) {
-                        row.style.display = '';
-                        found = true;
-                    } else {
-                        row.style.display = 'none';
-                    }
-                });
-            } else {
-                rows.forEach(row => {
-                    const range = row.cells[0].textContent.split('-');
-                    const start = range[0];
+                let matchesSearch = true;
+                let matchesCompany = true;
     
-                    if (start.startsWith(searchValue)) {
-                        row.style.display = '';
-                        found = true;
-                    } else {
-                        row.style.display = 'none';
-                    }
-                });
-            }
+                if (searchValue.length === 4 && !isNaN(searchValue)) {
+                    const numericValue = parseInt(searchValue, 10);
+                    matchesSearch = numericValue >= parseInt(start, 10) && numericValue <= parseInt(end, 10);
+                } else if (searchValue !== "") {
+                    matchesSearch = start.startsWith(searchValue);
+                }
     
-            document.getElementById('noResults').style.display = found ? 'none' : '';
-        });
+                if (selectedCompanies.length > 0) {
+                    matchesCompany = selectedCompanies.includes(company);
+                }
+    
+                if (matchesSearch && matchesCompany) {
+                    row.style.display = '';
+                    found = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+    
+            noResults.style.display = found ? 'none' : '';
+        }
+    
+        searchBar.addEventListener('input', filterRows);
+        checkboxes.forEach(checkbox => checkbox.addEventListener('change', filterRows));
     </script>
     
     
