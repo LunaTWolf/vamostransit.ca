@@ -92,7 +92,11 @@
         }
     </style>
     
-    <table>
+    <h1>Fleet Number Search</h1>
+    <input type="number" id="searchBar" placeholder="Enter fleet number...">
+    <p id="noResults">No buses found for the entered fleet number.</p>
+
+    <table id="fleetTable">
         <thead>
             <tr>
                 <th>Fleet Numbers</th>
@@ -348,6 +352,26 @@
             </tr>
         </tbody>
     </table>
+
+    <script>
+        document.getElementById('searchBar').addEventListener('input', function () {
+            const searchValue = parseInt(this.value, 10);
+            const rows = document.querySelectorAll('#fleetTable tbody tr');
+            let found = false;
+    
+            rows.forEach(row => {
+                const range = row.cells[0].textContent.split('-').map(Number);
+                if (searchValue >= range[0] && searchValue <= range[1]) {
+                    row.style.display = '';
+                    found = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+    
+            document.getElementById('noResults').style.display = found ? 'none' : '';
+        });
+    </script>
     
     
     
