@@ -90,6 +90,12 @@
             display: block;
             margin: auto;
         }
+
+        #noResults {
+            display: none;
+            color: red;
+            font-weight: bold;
+        }
     </style>
     
     <h1>Fleet Number Search</h1>
@@ -355,13 +361,21 @@
 
     <script>
         document.getElementById('searchBar').addEventListener('input', function () {
-            const searchValue = parseInt(this.value, 10);
+            const searchValue = this.value.trim();
             const rows = document.querySelectorAll('#fleetTable tbody tr');
             let found = false;
     
+            if (searchValue === "") {
+                rows.forEach(row => row.style.display = '');
+                document.getElementById('noResults').style.display = 'none';
+                return;
+            }
+    
+            const numericValue = parseInt(searchValue, 10);
+    
             rows.forEach(row => {
                 const range = row.cells[0].textContent.split('-').map(Number);
-                if (searchValue >= range[0] && searchValue <= range[1]) {
+                if (numericValue >= range[0] && numericValue <= range[1]) {
                     row.style.display = '';
                     found = true;
                 } else {
