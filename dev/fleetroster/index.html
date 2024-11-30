@@ -371,11 +371,11 @@
                 return;
             }
     
-            const numericValue = parseInt(searchValue, 10);
-    
             rows.forEach(row => {
-                const range = row.cells[0].textContent.split('-').map(Number);
-                if (numericValue >= range[0] && numericValue <= range[1]) {
+                const range = row.cells[0].textContent.split('-');
+                const start = range[0];
+    
+                if (start.startsWith(searchValue)) {
                     row.style.display = '';
                     found = true;
                 } else {
