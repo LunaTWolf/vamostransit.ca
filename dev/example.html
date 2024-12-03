@@ -6,17 +6,19 @@
     <title>VAMOS Transit</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://vamostransit.ca/style.css">
-    <link rel="icon" href="https://vamostransit.ca/vamos48.ico" type="image/x-icon">
+    <link rel="icon" href="https://vamostransit.ca/vamos.png">
+    <link rel="shortcut icon" href="https://vamostransit.ca/favicon.ico">
     <!-- Basic Metadata -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="VAMOS Transit - Error 404: Lost?">
+    <meta name="title" content="VAMOS Transit - ">
     <meta name="description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
     <meta name="author" content="VAMOS Transit">
     <meta name="keywords" content="Transit, Caledonia, VAMOS Transit, Public Transport, Cayuga, Roblox">
+    <meta name="robots" content="index, follow">
 
     <!-- Open Graph Metadata -->
-    <meta property="og:title" content="VAMOS Transit - Error 404: Lost?">
+    <meta property="og:title" content="VAMOS Transit - ">
     <meta property="og:description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
     <meta property="og:image" content="https://vamostransit.ca/defaultwide.png"> <!-- Replace with your image URL -->
     <meta property="og:url" content="https://vamostransit.ca">
@@ -25,7 +27,7 @@
 
     <!-- Twitter Card Metadata -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="VAMOS Transit - Error 404: Lost?">
+    <meta name="twitter:title" content="VAMOS Transit - ">
     <meta name="twitter:description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
     <meta name="twitter:image" content="https://vamostransit.ca/defaultwide.png"> <!-- Replace with your image URL -->
     <!-- Google tag (gtag.js) -->
@@ -50,21 +52,68 @@
     
     <div class="hero" style="background-image: url('https://vamostransit.ca/images/404.png');">
         <div class="hero-text">
-            <center><h2><span>Lost?<br>Click <a href="https://vamostransit.ca/">here</a> to return.</span></h2></center>
+            <center><h2><span>example</span></h2></center>
         </div>
     </div>
 
-    <div class="content" style="flex: 1;">
-        
-    </div>
-    
 
+
+
+    <div class="content" style="flex: 1;"></div>
     <footer>
         <div class="footer-content">
             <h4 style="margin-bottom: 2px;">"vamostransit.ca" is not owned by or affiliated with Vamos Transit Simulator.</h4>
             <p style="padding-top: -10px;"><strong>Work with Vamos? Email us here: admin@vamostransit.ca</strong></p>
         </div>
     </footer>
-    
+    <div id="cookie-banner" style="
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #333;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+    font-size: 14px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    ">
+    <span style="margin-right: 20px;">We use cookies to improve your experience on our site. By using our site, you agree to our use of cookies. 
+    </span>
+    <button id="cookie-accept" style="
+        background: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 14px;
+        border-radius: 5px;
+    ">Accept</button>
+    </div>
+
+    <script>
+    // Cookie banner logic
+    document.addEventListener("DOMContentLoaded", function () {
+        const cookieBanner = document.getElementById("cookie-banner");
+        const acceptButton = document.getElementById("cookie-accept");
+
+        // Check if cookie consent is already given
+        const isCookieAccepted = document.cookie.split("; ").find(row => row.startsWith("cookieConsent="));
+
+        if (!isCookieAccepted) {
+        cookieBanner.style.display = "flex"; // Show the banner if consent is not given
+        cookieBanner.style.justifyContent = "center";
+        cookieBanner.style.alignItems = "center";
+        }
+
+        // Handle Accept button click
+        acceptButton.addEventListener("click", function () {
+        document.cookie = "cookieConsent=true; path=/; max-age=" + 60 * 60 * 24 * 365; // Set cookie for 1 year
+        cookieBanner.style.display = "none"; // Hide the banner
+        });
+    });
+    </script>
 </body>
 </html>

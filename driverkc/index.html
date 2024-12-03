@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAMOS Transit - Driver Knowledge Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://vamostransit.ca/style.css">
+    <link rel="icon" href="https://vamostransit.ca/vamos.png">
+    <link rel="shortcut icon" href="https://vamostransit.ca/favicon.ico">
+    <!-- Basic Metadata -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="VAMOS Transit - Driver Knowledge Center">
+    <meta name="description" content="The Driver Knowledge Center has your Routes, Display Codes, P/R Codes, and destination codes all on one page! Looking for a route to drive? Click here!">
+    <meta name="author" content="VAMOS Transit">
+    <meta name="keywords" content="Transit, Caledonia, VAMOS Transit, Public Transport, Cayuga, Roblox, Routes, Route Codes, codes, simulator, simulator routes">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="VAMOS Transit - Driver Knowledge Center">
+    <meta property="og:description" content="The Driver Knowledge Center has your Routes, Display Codes, P/R Codes, and destination codes all on one page! Looking for a route to drive? Click here!">
+    <meta property="og:image" content="https://vamostransit.ca/images/driverkc.png"> <!-- Replace with your image URL -->
+    <meta property="og:url" content="https://vamostransit.ca">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="VAMOS Transit">
+
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VAMOS Transit - Driver Knowledge Center">
+    <meta name="twitter:description" content="The Driver Knowledge Center has your Routes, Display Codes, P/R Codes, and destination codes all on one page! Looking for a route to drive? Click here!">
+    <meta name="twitter:image" content="https://vamostransit.ca/images/driverkc.png"> <!-- Replace with your image URL -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGJXZSHTFY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-FGJXZSHTFY');
+    </script>
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+    <div id="header-container"></div>
+    <script>
+        fetch('https://vamostransit.ca/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+    </script>
+    
+    <div class="hero" style="background-position: bottom; background-image: url('https://vamostransit.ca/images/driverkc.png');">
+        <div class="hero-text">
+            <center><h2><span>Driver<br> Knowledge Center</span></h2></center>
+            <h5 style="position: absolute; bottom: 0; left: 0; padding-left: 10px;">Screenshot taken by RobotCode123</h5>
+        </div>
+    </div>
+
+    <style>
+        h2 {
+            margin-left: 10px;
+        }
+    </style>
+
+    <h2>Need display, P/R or dest codes? <a href="https://vamostransit.ca/codebook">Codebook</a></h2>
+    <h2 style="margin-top: -10px;">Want to view the routes you can drive? <a href="https://vamostransit.ca/#routelist">View Our Routes</a></h2>
+    <h2 style="margin-top: -10px;">Want to view all of our vehicles? <a href="https://vamostransit.ca/fleetroster">Bus Roster</a></h2>
+    <h2 style="margin-top: -10px;">Confused on how to navigate an intersection? <a>Driving Guides</a> (Coming Soon)</h2>
+
+    <div class="content" style="flex: 1;"></div>
+    <footer>
+        <div class="footer-content">
+            <h4 style="margin-bottom: 2px;">"vamostransit.ca" is not owned by or affiliated with Vamos Transit Simulator.</h4>
+            <p style="padding-top: -10px;"><strong>Work with Vamos? Email us here: admin@vamostransit.ca</strong></p>
+        </div>
+    </footer>
+    <div id="cookie-banner" style="
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #333;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+    font-size: 14px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    ">
+    <span style="margin-right: 20px;">We use cookies to improve your experience on our site. By using our site, you agree to our use of cookies. 
+    </span>
+    <button id="cookie-accept" style="
+        background: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 14px;
+        border-radius: 5px;
+    ">Accept</button>
+    </div>
+
+    <script>
+    // Cookie banner logic
+    document.addEventListener("DOMContentLoaded", function () {
+        const cookieBanner = document.getElementById("cookie-banner");
+        const acceptButton = document.getElementById("cookie-accept");
+
+        // Check if cookie consent is already given
+        const isCookieAccepted = document.cookie.split("; ").find(row => row.startsWith("cookieConsent="));
+
+        if (!isCookieAccepted) {
+        cookieBanner.style.display = "flex"; // Show the banner if consent is not given
+        cookieBanner.style.justifyContent = "center";
+        cookieBanner.style.alignItems = "center";
+        }
+
+        // Handle Accept button click
+        acceptButton.addEventListener("click", function () {
+        document.cookie = "cookieConsent=true; path=/; max-age=" + 60 * 60 * 24 * 365; // Set cookie for 1 year
+        cookieBanner.style.display = "none"; // Hide the banner
+        });
+    });
+    </script>
+</body>
+</html>

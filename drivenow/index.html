@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to Roblox...</title>
+    <script>
+        function redirectToRobloxGame() {
+            const placeID = "15057336058"; // Roblox Game Place ID
+            const robloxProtocolURL = `roblox://placeID=${placeID}`;
+            const fallbackWebURL = "https://www.roblox.com/games/15057336058/VAMOS-Transit-Simulator";
+            const mainWebsiteURL = "https://vamostransit.ca/";
+
+            // Try opening Roblox
+            window.location.href = robloxProtocolURL;
+
+            // Fallback if Roblox is not installed
+            setTimeout(() => {
+                window.location.href = fallbackWebURL;
+            }, 10000); // 10 seconds timeout to allow Roblox client to open
+
+            // Redirect to the main website if Roblox opens successfully
+            window.addEventListener("blur", () => {
+                setTimeout(() => {
+                    window.location.href = mainWebsiteURL;
+                }, 1000); // Slight delay to ensure user focus changed to Roblox
+            });
+        }
+
+        // Call the redirect function on page load
+        window.onload = redirectToRobloxGame;
+    </script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>VAMOS Transit - Drive Now</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://vamostransit.ca/style.css">
+        <link rel="icon" href="https://vamostransit.ca/vamos.png">
+        <link rel="shortcut icon" href="https://vamostransit.ca/favicon.ico">
+        <!-- Basic Metadata -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="VAMOS Transit - Drive Now">
+        <meta name="description" content="Click this link to join the game and start driving passengers and serving the region of surrey now!">
+        <meta name="author" content="VAMOS Transit">
+    
+        <!-- Open Graph Metadata -->
+        <meta property="og:title" content="VAMOS Transit - Drive Now">
+        <meta property="og:description" content="Click this link to join the game and start driving passengers and serving the region of surrey now!">
+        <meta property="og:image" content="https://vamostransit.ca/defaultwide2.png"> <!-- Replace with your image URL -->
+        <meta property="og:url" content="https://vamostransit.ca">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="VAMOS Transit">
+    
+        <!-- Twitter Card Metadata -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="VAMOS Transit - Drive Now">
+        <meta name="twitter:description" content="Click this link to join the game and start driving passengers and serving the region of surrey now!">
+        <meta name="twitter:image" content="https://vamostransit.ca/defaultwide2.png"> <!-- Replace with your image URL -->
+</head>
+<body>
+    <h1>Opening Roblox...</h1>
+    <p>If it doesn't open automatically, <a href="roblox://placeID=15057336058">click here to join the game manually</a>.</p>
+    <p>Click <a href="https://www.roblox.com/games/15057336058/VAMOS-Transit-Simulator">here</a> to open the roblox page.</p>
+</body>
+</html>

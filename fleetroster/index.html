@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title id="pageTitle">VAMOS Transit - Bus Roster</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://vamostransit.ca/style.css">
+        <link rel="icon" href="https://vamostransit.ca/vamos.png">
+        <link rel="shortcut icon" href="https://vamostransit.ca/favicon.ico">
+    
+        <!-- Basic Metadata -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="VAMOS Transit - Bus Roster">
+        <meta name="description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
+        <meta name="author" content="VAMOS Transit">
+        <meta name="keywords" content="Transit, Caledonia, VAMOS Transit, Public Transport, Cayuga, Roblox, Fleet, Roster, Bus, Bus Roster, Fleet Roster, VAMOS Transit, Caledonia Transit, Cayuga Transit, Fleet Number, Fleet Numbers">
+        <meta name="robots" content="index, follow">
+
+        <!-- Open Graph Metadata -->
+        <meta property="og:title" content="VAMOS Transit - Bus Roster">
+        <meta property="og:description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
+        <meta property="og:image" content="https://vamostransit.ca/defaultwide.png"> <!-- Replace with your image URL -->
+        <meta property="og:url" content="https://vamostransit.ca">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="VAMOS Transit">
+    
+        <!-- Twitter Card Metadata -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="VAMOS Transit - Bus Roster">
+        <meta name="twitter:description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
+        <meta name="twitter:image" content="https://vamostransit.ca/defaultwide.png"> <!-- Replace with your image URL -->
+    
+        <script>
+            // Define the variable for the site title
+            const siteTitle = "VAMOS Transit - Bus Roster";
+    
+            // Update all instances of the site title
+            document.title = siteTitle;
+            document.querySelector('meta[name="title"]').setAttribute('content', siteTitle);
+            document.querySelector('meta[property="og:title"]').setAttribute('content', siteTitle);
+            document.querySelector('meta[name="twitter:title"]').setAttribute('content', siteTitle);
+        </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGJXZSHTFY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-FGJXZSHTFY');
+    </script>
+</head>
+    
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+    <div id="header-container"></div>
+    <script>
+        fetch('https://vamostransit.ca/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+    </script>
+    
+    <div class="hero" style="background-image: url('https://vamostransit.ca/images/fleetroster2.png'); background-position: left bottom;">
+        <div class="hero-text">
+            <center><h2><span>Bus Roster</span></h2></center>
+            <h5 style="position: absolute; bottom: 0; left: 0; padding-left: 10px;">Screenshot taken by Wolfen_Daven</h5>
+        </div>
+    </div>
+
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            text-align: left;
+        }
+    
+        table th, table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+    
+        table th {
+            background-color: #f4f4f4;
+        }
+    
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    
+        table img {
+            max-width: 100px;
+            height: auto;
+            display: block;
+            margin: auto;
+        }
+
+        #noResults {
+            display: none;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+    
+    <h1>Fleet Number Search</h1>
+    <div id="controls">
+        <input type="text" id="searchBar" placeholder="Enter fleet number...">
+        <div id="checkboxes">
+            <label><input type="checkbox" class="companyFilter" value="VAMOS Transit"> VAMOS Transit</label>
+            <label><input type="checkbox" class="companyFilter" value="Caledonia Transit"> Caledonia Transit</label>
+            <label><input type="checkbox" class="companyFilter" value="Cayuga Transit"> Cayuga Transit</label>
+        </div>
+    </div>
+    <p id="noResults">No buses found for the entered fleet number.</p>
+
+    <table id="fleetTable">
+        <thead>
+            <tr>
+                <th>Fleet Numbers</th>
+                <th>Thumbnail</th>
+                <th>Year</th>
+                <th>Manufacturer</th>
+                <th>Model</th>
+                <th>Engine</th>
+                <th>Transmission</th>
+                <th>Company</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>8900-8949</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-1989-nf-d40hf.png" alt="New Flyer D40HF"></td>
+                <td>1989</td>
+                <td>New Flyer</td>
+                <td>D40HF</td>
+                <td>Detroit Diesel 6V92TA</td>
+                <td>Allison HT-748</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>9500-9534</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-1995-nf-d40lf.png" alt="New Flyer D40LF"></td>
+                <td>1995</td>
+                <td>New Flyer</td>
+                <td>D40LF</td>
+                <td>Detroit Diesel Series 50</td>
+                <td>Allison B400R</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>9920-9959</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-1999-nf-c40lf.png" alt="New Flyer C40LF"></td>
+                <td>1999</td>
+                <td>New Flyer</td>
+                <td>C40LF</td>
+                <td>Detroit Diesel Series 50G</td>
+                <td>Allison B400R</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>1900-1939</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/vamos-0-orionv.png" alt="Orion V"></td>
+                <td>2004</td>
+                <td>Orion</td>
+                <td>V</td>
+                <td>Cummins ISM</td>
+                <td>Voith D863.3E</td>
+                <td>VAMOS Transit</td>
+            </tr>
+            <tr>
+                <td>2000-2039</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/vamos-0-orionv.png" alt="Orion V"></td>
+                <td>2004</td>
+                <td>Orion</td>
+                <td>V DD</td>
+                <td>Cummins ISM</td>
+                <td>Voith D863.3E</td>
+                <td>VAMOS Transit</td>
+            </tr>
+            <tr>
+                <td>2216-2266</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/vamos-2004-mcid4500.png" alt="Orion V"></td>
+                <td>2004</td>
+                <td>MCI</td>
+                <td>D4500</td>
+                <td>Cummins ISM</td>
+                <td>Allison B500</td>
+                <td>VAMOS Transit</td>
+            </tr>
+            <tr>
+                <td>4100-4179</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-2004-or-ogdiesel.png" alt="Orion VII OG Diesel"></td>
+                <td>2004</td>
+                <td>Orion</td>
+                <td>VII OG Diesel</td>
+                <td>Cummins ISL</td>
+                <td>Allison B400R</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>5100-5189</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-2005-nf-d40lf.png" alt="New Flyer D40LF"></td>
+                <td>2005</td>
+                <td>New Flyer</td>
+                <td>D40LF</td>
+                <td>Cummins ISL</td>
+                <td>Voith D864.3E</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>0701-0720</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/cayuga-2007-nf-d40lf.png" alt="New Flyer D40LF"></td>
+                <td>2007</td>
+                <td>New Flyer</td>
+                <td>D40LF</td>
+                <td>Cummins ISL</td>
+                <td>ZF 6HP594C</td>
+                <td>Cayuga Transit</td>
+            </tr>
+            <tr>
+                <td>3000-3009</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/vamos-2008-mcid4500cth.png" alt="Orion V"></td>
+                <td>2008</td>
+                <td>MCI</td>
+                <td>D4500CTH</td>
+                <td>Cummins ISL</td>
+                <td>Allison EP50</td>
+                <td>VAMOS Transit</td>
+            </tr>
+            <tr>
+                <td>1200-1299</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-2008-or-viinghev.png" alt="Orion VII NG HEV"></td>
+                <td>2008</td>
+                <td>Orion</td>
+                <td>VII NG HEV (Lithium Ion)</td>
+                <td>Cummins ISB</td>
+                <td>BAE HybriDrive</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>0900-0930</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/cayuga-2009-el-ezriderii.png" alt="ElDorado E-Z Rider II"></td>
+                <td>2009</td>
+                <td>ElDorado</td>
+                <td>E-Z Rider II</td>
+                <td>Cummins ISL</td>
+                <td>Voith D864.5</td>
+                <td>Cayuga Transit</td>
+            </tr>
+            <tr>
+                <td>1400-1444</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-2008-or-viinghev.png" alt="Orion VII NG HEV"></td>
+                <td>2009</td>
+                <td>Orion</td>
+                <td>VII NG HEV (Lead Acid)</td>
+                <td>Cummins ISB</td>
+                <td>BAE HybriDrive</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>1031-1045</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/cayuga-2010-or-3ghev.png" alt="Orion 3G HEV"></td>
+                <td>2010</td>
+                <td>Orion</td>
+                <td>3G HEV</td>
+                <td>ISB6.7</td>
+                <td>BAE HybriDrive HDS 200</td>
+                <td>Cayuga Transit</td>
+            </tr>
+            <tr>
+                <td>1100-1189</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-2011-nf-xd40.png" alt="New Flyer XD40"></td>
+                <td>2011</td>
+                <td>New Flyer</td>
+                <td>XD40</td>
+                <td>Cummins ISL9</td>
+                <td>Allison B400R</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>2450-2482</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/vamos-2008-mcid4500cth.png" alt="Orion V"></td>
+                <td>2011-2013</td>
+                <td>MCI</td>
+                <td>D4500CT</td>
+                <td>Detroit Diesel Series 60</td>
+                <td>Allison B500</td>
+                <td>VAMOS Transit</td>
+            </tr>
+            <tr>
+                <td>2518-2553</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/vamos-2008-mcid4500cth.png" alt="Orion V"></td>
+                <td>2011-2013</td>
+                <td>MCI</td>
+                <td>D4500CT</td>
+                <td>Cummins ISX12</td>
+                <td>Allison B500</td>
+                <td>VAMOS Transit</td>
+            </tr>
+            <tr>
+                <td>2607-2616</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/vamos-2015-mcid4500ct.png" alt="Orion V"></td>
+                <td>2015</td>
+                <td>MCI</td>
+                <td>D4500CT</td>
+                <td>Cummins ISX12</td>
+                <td>Allison B500</td>
+                <td>VAMOS Transit</td>
+            </tr>
+            <tr>
+                <td>1500-1539</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-2020-nb-lfs.png" alt="Orion V"></td>
+                <td>2015</td>
+                <td>NovaBus</td>
+                <td>LFS (Horizon)</td>
+                <td>Cummins ISL9</td>
+                <td>Allison B400R</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>2000-2024</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-2020-nb-lfs.png" alt="Orion V"></td>
+                <td>2020</td>
+                <td>NovaBus</td>
+                <td>LFS (Titan)</td>
+                <td>Cummins ISL9</td>
+                <td>Allison B400R</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>2200-2264</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-2022-nf-xde40.png" alt="New Flyer XDE40"></td>
+                <td>2022</td>
+                <td>New Flyer</td>
+                <td>XDE40</td>
+                <td>Cummins B6.7</td>
+                <td>BAE HDS 200</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>2405-2429</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-2024-nb-lfx.png" alt="Orion V"></td>
+                <td>2024</td>
+                <td>NovaBus</td>
+                <td>LFX</td>
+                <td>Cummins L9</td>
+                <td>Allison B400R</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>2430-2449</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-20242025-lfse.png" alt="Orion V"></td>
+                <td>2024-2025</td>
+                <td>NovaBus</td>
+                <td>LFSE+</td>
+                <td>BAE GPM-12</td>
+                <td>Direct Drive</td>
+                <td>Caledonia Transit</td>
+            </tr>
+            <tr>
+                <td>2450-2269</td>
+                <td><img src="https://vamostransit.ca/images/vehicles/caledonia-20242025-nf-xe40ng.png" alt="New Flyer XDE40"></td>
+                <td>2024-2025</td>
+                <td>New Flyer</td>
+                <td>XE40 NG</td>
+                <td>Siemens ELFA3</td>
+                <td>Direct Drive</td>
+                <td>Caledonia Transit</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        const searchBar = document.getElementById('searchBar');
+        const checkboxes = document.querySelectorAll('.companyFilter');
+        const noResults = document.getElementById('noResults');
+        const rows = document.querySelectorAll('#fleetTable tbody tr');
+    
+        function filterRows() {
+            const searchValue = searchBar.value.trim();
+            const selectedCompanies = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+            let found = false;
+    
+            rows.forEach(row => {
+                const fleetRange = row.cells[0].textContent.split('-');
+                const company = row.cells[7].textContent; // Updated to reflect the 8th column
+                const start = fleetRange[0];
+                const end = fleetRange[1];
+    
+                let matchesSearch = true;
+                let matchesCompany = true;
+    
+                if (searchValue.length === 4 && !isNaN(searchValue)) {
+                    const numericValue = parseInt(searchValue, 10);
+                    matchesSearch = numericValue >= parseInt(start, 10) && numericValue <= parseInt(end, 10);
+                } else if (searchValue !== "") {
+                    matchesSearch = start.startsWith(searchValue);
+                }
+    
+                if (selectedCompanies.length > 0) {
+                    matchesCompany = selectedCompanies.includes(company);
+                }
+    
+                if (matchesSearch && matchesCompany) {
+                    row.style.display = '';
+                    found = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+    
+            noResults.style.display = found ? 'none' : '';
+        }
+    
+        searchBar.addEventListener('input', filterRows);
+        checkboxes.forEach(checkbox => checkbox.addEventListener('change', filterRows));
+    </script>
+    
+    
+    
+    
+    
+
+    <div class="content" style="flex: 1;"></div>
+    <footer>
+        <div class="footer-content">
+            <h4 style="margin-bottom: 2px;">"vamostransit.ca" is not owned by or affiliated with Vamos Transit Simulator.</h4>
+            <p style="padding-top: -10px;"><strong>Work with Vamos? Email us here: admin@vamostransit.ca</strong></p>
+        </div>
+    </footer>
+    <div id="cookie-banner" style="
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #333;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+    font-size: 14px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    ">
+    <span style="margin-right: 20px;">We use cookies to improve your experience on our site. By using our site, you agree to our use of cookies. 
+    </span>
+    <button id="cookie-accept" style="
+        background: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 14px;
+        border-radius: 5px;
+    ">Accept</button>
+    </div>
+
+    <script>
+    // Cookie banner logic
+    document.addEventListener("DOMContentLoaded", function () {
+        const cookieBanner = document.getElementById("cookie-banner");
+        const acceptButton = document.getElementById("cookie-accept");
+
+        // Check if cookie consent is already given
+        const isCookieAccepted = document.cookie.split("; ").find(row => row.startsWith("cookieConsent="));
+
+        if (!isCookieAccepted) {
+        cookieBanner.style.display = "flex"; // Show the banner if consent is not given
+        cookieBanner.style.justifyContent = "center";
+        cookieBanner.style.alignItems = "center";
+        }
+
+        // Handle Accept button click
+        acceptButton.addEventListener("click", function () {
+        document.cookie = "cookieConsent=true; path=/; max-age=" + 60 * 60 * 24 * 365; // Set cookie for 1 year
+        cookieBanner.style.display = "none"; // Hide the banner
+        });
+    });
+    </script>
+</body>
+</html>
