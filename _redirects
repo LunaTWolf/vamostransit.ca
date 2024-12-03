@@ -1,2 +1,2 @@
 #/servicealert https://vamostransit.ca/#service-alert-container
-/dev/*    /  401!  Role=dev
+/dev/* /login 401! Role=dev
