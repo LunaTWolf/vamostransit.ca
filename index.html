@@ -84,6 +84,44 @@
     </div>
 
     <center>
+        <h1>The New Flyer LFS remodel will release in</h1>
+        <div id="countdown" style="font-family: Arial, sans-serif; text-align: center; font-size: 20px; padding: 10px; margin-top: -20px;">
+            <span id="days"></span> days, 
+            <span id="hours"></span> hours, 
+            <span id="minutes"></span> minutes, 
+            <span id="seconds"></span> seconds
+          </div>
+          
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const countdown = document.getElementById("countdown");
+              const targetDate = new Date("December 6, 2024 18:00:00 EST").getTime();
+          
+              function updateCountdown() {
+                const now = new Date().getTime();
+                const timeLeft = targetDate - now;
+          
+                if (timeLeft < 0) {
+                  countdown.textContent = "It's released!";
+                  clearInterval(interval);
+                  return;
+                }
+          
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+          
+                document.getElementById("days").textContent = days;
+                document.getElementById("hours").textContent = hours;
+                document.getElementById("minutes").textContent = minutes;
+                document.getElementById("seconds").textContent = seconds;
+              }
+          
+              const interval = setInterval(updateCountdown, 1000);
+              updateCountdown(); // Initial call to avoid delay
+            });
+          </script>
         <h1>Watch the teaser for the New Flyer LFS remodel!</h1>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/084sg8YKKj8?si=dDSUNWaHjEhP5ZAI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </center>
