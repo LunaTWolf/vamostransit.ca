@@ -436,6 +436,54 @@
             <p style="padding-top: -10px;"><strong>Work with Vamos? Email us here: admin@vamostransit.ca</strong></p>
         </div>
     </footer>
-    
+    <div id="cookie-banner" style="
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #333;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+    font-size: 14px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    ">
+    <span style="margin-right: 20px;">We use cookies to improve your experience on our site. By using our site, you agree to our use of cookies. 
+    </span>
+    <button id="cookie-accept" style="
+        background: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 14px;
+        border-radius: 5px;
+    ">Accept</button>
+    </div>
+
+    <script>
+    // Cookie banner logic
+    document.addEventListener("DOMContentLoaded", function () {
+        const cookieBanner = document.getElementById("cookie-banner");
+        const acceptButton = document.getElementById("cookie-accept");
+
+        // Check if cookie consent is already given
+        const isCookieAccepted = document.cookie.split("; ").find(row => row.startsWith("cookieConsent="));
+
+        if (!isCookieAccepted) {
+        cookieBanner.style.display = "flex"; // Show the banner if consent is not given
+        cookieBanner.style.justifyContent = "center";
+        cookieBanner.style.alignItems = "center";
+        }
+
+        // Handle Accept button click
+        acceptButton.addEventListener("click", function () {
+        document.cookie = "cookieConsent=true; path=/; max-age=" + 60 * 60 * 24 * 365; // Set cookie for 1 year
+        cookieBanner.style.display = "none"; // Hide the banner
+        });
+    });
+    </script>
 </body>
 </html>
