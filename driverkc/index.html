@@ -64,8 +64,11 @@
             fetch('https://vamostransit.ca/autoimagerotation/images.json')
                 .then(response => response.json())
                 .then(imagesData => {
-                    // Generate a random image id between 1 and 9
-                    const randomId = Math.floor(Math.random() * 9) + 1;
+                    // Get the total number of images from the 'count' property
+                    const totalImages = imagesData.count;
+    
+                    // Generate a random image id between 1 and the total number of images
+                    const randomId = Math.floor(Math.random() * totalImages) + 1;
                     const image = imagesData[randomId];
     
                     // Update the background image and author
