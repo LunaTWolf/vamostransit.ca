@@ -44,38 +44,63 @@
             3: "cayuga"
         };
 
-        // Select the image container
-        const imageContainer = document.getElementById('image-container');
+        // Check URL parameters
+        const params = new URLSearchParams(window.location.search);
+        const isApi = params.get('api') === 'true';
+        const brandFilter = params.get('brand');
+        const formatFilter = params.get('format');
 
-        // Generate a random image ID from 1 to 9
-        const randomImageId = Math.floor(Math.random() * 9) + 1;
-        const imageData = jsonData[randomImageId];
+        // Filter images based on parameters
+        const filteredImages = Object.entries(jsonData).filter(([id, data]) => {
+            const matchesBrand = brandFilter ? data.brand === parseInt(brandFilter) : true;
+            const matchesFormat = formatFilter ? data.format === formatFilter : true;
+            return matchesBrand && matchesFormat;
+        });
 
-        if (imageData) {
+        // Select a random image from the filtered list
+        const randomImage = filteredImages.length > 0 ? filteredImages[Math.floor(Math.random() * filteredImages.length)] : null;
+
+        if (randomImage) {
+            const [randomImageId, imageData] = randomImage;
             const imageUrl = `https://vamostransit.ca/autoimagerotation/images/${randomImageId}.${imageData.format}`;
             const brandName = brandMapping[imageData.brand] || "Unknown";
 
-            // Create image element
-            const img = document.createElement('img');
-            img.src = imageUrl;
-            img.alt = `Image ID ${randomImageId}`;
+            if (isApi) {
+                // Output JSON response if API mode is enabled
+                const jsonResponse = {
+                    "imageUrl": imageUrl,
+                    "imageId": randomImageId,
+                    "imageType": imageData.format,
+                    "author": imageData.author,
+                    "brand": brandName
+                };
+                document.body.textContent = JSON.stringify(jsonResponse, null, 2);
+            } else {
+                // Display image and details normally
+                const imageContainer = document.getElementById('image-container');
 
-            // Create info text
-            const info = document.createElement('div');
-            info.classList.add('info');
-            info.innerHTML = `
-                <p>Image file: <a href="${imageUrl}" target="_blank">${imageUrl}</a></p>
-                <p>Image ID: ${randomImageId}</p>
-                <p>Image file type: ${imageData.format}</p>
-                <p>Author: ${imageData.author}</p>
-                <p>Brand: ${brandName}</p>
-            `;
+                // Create image element
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.alt = `Image ID ${randomImageId}`;
 
-            // Append elements to container
-            imageContainer.appendChild(img);
-            imageContainer.appendChild(info);
+                // Create info text
+                const info = document.createElement('div');
+                info.classList.add('info');
+                info.innerHTML = `
+                    <p>Image file: <a href="${imageUrl}" target="_blank">${imageUrl}</a></p>
+                    <p>Image ID: ${randomImageId}</p>
+                    <p>Image file type: ${imageData.format}</p>
+                    <p>Author: ${imageData.author}</p>
+                    <p>Brand: ${brandName}</p>
+                `;
+
+                // Append elements to container
+                imageContainer.appendChild(img);
+                imageContainer.appendChild(info);
+            }
         } else {
-            imageContainer.innerHTML = "<p>Image not found.</p>";
+            document.body.textContent = isApi ? "{}" : "No matching images found.";
         }
     </script>
 </body>
