@@ -50,9 +50,41 @@
             });
     </script>
 
-    <div class="hero" style="background-image: url('https://vamostransit.ca/images/green.png');">
-        <center><h2>Leading the Way to a Greener Future</h2></center>
+    <div class="hero" id="hero">
+        <div class="hero-text">
+            <center><h2><span>Leading the way to a greener future</span></h2></center>
+            <h5 id="author" style="position: absolute; bottom: 0; left: 0; padding-left: 10px;"></h5>
+        </div>
     </div>
+    
+    <script>
+        // Function to fetch JSON data and update the hero section
+        function getRandomImage() {
+            // Fetch the JSON data from the file
+            fetch('https://vamostransit.ca/autoimagerotation/images.json')
+                .then(response => response.json())
+                .then(imagesData => {
+                    // Get the total number of images from the 'count' property
+                    const totalImages = imagesData.count;
+    
+                    // Generate a random image id between 1 and the total number of images
+                    const randomId = Math.floor(Math.random() * totalImages) + 1;
+                    const image = imagesData[randomId];
+    
+                    // Update the background image and author
+                    const hero = document.getElementById('hero');
+                    hero.style.backgroundPosition = 'bottom';
+                    hero.style.backgroundImage = `url('https://vamostransit.ca/images/${randomId}.${image.format}')`;
+    
+                    const authorElement = document.getElementById('author');
+                    authorElement.textContent = `Screenshot taken by ${image.author}`;
+                })
+                .catch(error => console.error('Error fetching image data:', error));
+        }
+    
+        // Run the function on page load
+        window.onload = getRandomImage;
+    </script>
 
     <div class="content">
         <div id="about" class="section">
