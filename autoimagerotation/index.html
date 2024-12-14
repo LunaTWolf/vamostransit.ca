@@ -74,6 +74,8 @@
                     "author": imageData.author,
                     "brand": brandName
                 };
+                document.head.innerHTML = "";
+                document.body.innerHTML = "";
                 document.body.textContent = JSON.stringify(jsonResponse, null, 2);
             } else {
                 // Display image and details normally
