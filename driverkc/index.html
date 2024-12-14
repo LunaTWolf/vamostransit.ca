@@ -50,12 +50,32 @@
             });
     </script>
     
-    <div class="hero" style="background-position: bottom; background-image: url('https://vamostransit.ca/images/driverkc.png');">
+    <div class="hero" id="hero" style="background-position: bottom;">
         <div class="hero-text">
             <center><h2><span>Driver<br> Knowledge Center</span></h2></center>
-            <h5 style="position: absolute; bottom: 0; left: 0; padding-left: 10px;">Screenshot taken by RobotCode123</h5>
+            <h5 style="position: absolute; bottom: 0; left: 0; padding-left: 10px;" id="author">Screenshot taken by RobotCode123</h5>
         </div>
     </div>
+    
+    <script>
+        // Fetch data from the API
+        fetch('https://vamostransit.ca/autoimagerotation/?api=true')
+            .then(response => response.json())
+            .then(data => {
+                // Update background image
+                const heroElement = document.getElementById('hero');
+                heroElement.style.backgroundImage = `url('${data.imageUrl}')`;
+    
+                // Update author text
+                const authorElement = document.getElementById('author');
+                authorElement.textContent = `Screenshot taken by ${data.author}`;
+            })
+            .catch(error => {
+                console.error('Error fetching image data:', error);
+            });
+    </script>
+    
+    
 
     <style>
         h2 {
