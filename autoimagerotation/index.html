@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Display</title>
+    <style>
+        .image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        img {
+            width: auto;
+            height: 800px;
+        }
+        .info {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container" id="image-container">
+        <!-- Image and details will be dynamically added here -->
+    </div>
+
+    <script>
+        // JSON data simulation
+        const jsonData = {
+            "1": { "format": "jpg", "author": "j4k3_j4c0b", "brand": 1 },
+            "2": { "format": "png", "author": "j4k3_j4c0b", "brand": 1 },
+            "3": { "format": "jpg", "author": "j4k3_j4c0b", "brand": 1 },
+            "4": { "format": "jpg", "author": "j4k3_j4c0b", "brand": 1 },
+            "5": { "format": "png", "author": "j4k3_j4c0b", "brand": 1 },
+            "6": { "format": "jpg", "author": "j4k3_j4c0b", "brand": 1 },
+            "7": { "format": "jpg", "author": "j4k3_j4c0b", "brand": 1 },
+            "8": { "format": "png", "author": "j4k3_j4c0b", "brand": 1 },
+            "9": { "format": "png", "author": "j4k3_j4c0b", "brand": 2 }
+        };
+
+        // Brand mapping
+        const brandMapping = {
+            1: "caledonia",
+            2: "vamos",
+            3: "cayuga"
+        };
+
+        // Select the image container
+        const imageContainer = document.getElementById('image-container');
+
+        // Generate a random image ID from 1 to 9
+        const randomImageId = Math.floor(Math.random() * 9) + 1;
+        const imageData = jsonData[randomImageId];
+
+        if (imageData) {
+            const imageUrl = `https://vamostransit.ca/autoimagerotation/images/${randomImageId}.${imageData.format}`;
+            const brandName = brandMapping[imageData.brand] || "Unknown";
+
+            // Create image element
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = `Image ID ${randomImageId}`;
+
+            // Create info text
+            const info = document.createElement('div');
+            info.classList.add('info');
+            info.innerHTML = `
+                <p>Image file: <a href="${imageUrl}" target="_blank">${imageUrl}</a></p>
+                <p>Image ID: ${randomImageId}</p>
+                <p>Image file type: ${imageData.format}</p>
+                <p>Author: ${imageData.author}</p>
+                <p>Brand: ${brandName}</p>
+            `;
+
+            // Append elements to container
+            imageContainer.appendChild(img);
+            imageContainer.appendChild(info);
+        } else {
+            imageContainer.innerHTML = "<p>Image not found.</p>";
+        }
+    </script>
+</body>
+</html>
