@@ -131,7 +131,7 @@ footer p {
     line-height: 1.5;
 }
 
-footer p::after {
+footer h4::after {
     content: "";
     display: block;
     width: 60px;
