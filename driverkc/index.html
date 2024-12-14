@@ -60,20 +60,34 @@
     <script>
         // Fetch data from the API
         fetch('https://vamostransit.ca/autoimagerotation/?api=true')
-            .then(response => response.json())
+            .then(response => {
+                // Check if the response is valid JSON
+                return response.text().then(text => {
+                    try {
+                        return JSON.parse(text); // Try parsing the text as JSON
+                    } catch (e) {
+                        throw new Error('Response is not valid JSON: ' + text);
+                    }
+                });
+            })
             .then(data => {
-                // Update background image
-                const heroElement = document.getElementById('hero');
-                heroElement.style.backgroundImage = `url('${data.imageUrl}')`;
+                if (data.imageUrl && data.author) {
+                    // Update background image
+                    const heroElement = document.getElementById('hero');
+                    heroElement.style.backgroundImage = `url('${data.imageUrl}')`;
     
-                // Update author text
-                const authorElement = document.getElementById('author');
-                authorElement.textContent = `Screenshot taken by ${data.author}`;
+                    // Update author text
+                    const authorElement = document.getElementById('author');
+                    authorElement.textContent = `Screenshot taken by ${data.author}`;
+                } else {
+                    console.error('Invalid data format:', data);
+                }
             })
             .catch(error => {
                 console.error('Error fetching image data:', error);
             });
     </script>
+    
     
     
 
