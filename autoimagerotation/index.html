@@ -60,12 +60,12 @@
         // Select a random image from the filtered list
         const randomImage = filteredImages.length > 0 ? filteredImages[Math.floor(Math.random() * filteredImages.length)] : null;
 
-        if (randomImage) {
-            const [randomImageId, imageData] = randomImage;
-            const imageUrl = `https://vamostransit.ca/autoimagerotation/images/${randomImageId}.${imageData.format}`;
-            const brandName = brandMapping[imageData.brand] || "Unknown";
+        if (isApi) {
+            if (randomImage) {
+                const [randomImageId, imageData] = randomImage;
+                const imageUrl = `https://vamostransit.ca/autoimagerotation/images/${randomImageId}.${imageData.format}`;
+                const brandName = brandMapping[imageData.brand] || "Unknown";
 
-            if (isApi) {
                 // Output JSON response if API mode is enabled
                 const jsonResponse = {
                     "imageUrl": imageUrl,
@@ -74,10 +74,16 @@
                     "author": imageData.author,
                     "brand": brandName
                 };
-                document.head.innerHTML = "";
-                document.body.innerHTML = "";
-                document.body.textContent = JSON.stringify(jsonResponse, null, 2);
+                document.write(JSON.stringify(jsonResponse, null, 2));
             } else {
+                document.write(JSON.stringify({}, null, 2));
+            }
+        } else {
+            if (randomImage) {
+                const [randomImageId, imageData] = randomImage;
+                const imageUrl = `https://vamostransit.ca/autoimagerotation/images/${randomImageId}.${imageData.format}`;
+                const brandName = brandMapping[imageData.brand] || "Unknown";
+
                 // Display image and details normally
                 const imageContainer = document.getElementById('image-container');
 
@@ -100,9 +106,9 @@
                 // Append elements to container
                 imageContainer.appendChild(img);
                 imageContainer.appendChild(info);
+            } else {
+                document.body.textContent = "No matching images found.";
             }
-        } else {
-            document.body.textContent = isApi ? "{}" : "No matching images found.";
         }
     </script>
 </body>
