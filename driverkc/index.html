@@ -61,32 +61,47 @@
         // Fetch data from the API
         fetch('https://vamostransit.ca/autoimagerotation/?api=true')
             .then(response => {
-                // Check if the response is valid JSON
-                return response.text().then(text => {
-                    try {
-                        return JSON.parse(text); // Try parsing the text as JSON
-                    } catch (e) {
-                        throw new Error('Response is not valid JSON: ' + text);
-                    }
-                });
+                // First, check if the response is valid JSON or HTML
+                if (response.ok) {
+                    return response.text().then(text => {
+                        try {
+                            // Attempt to parse JSON if the response is JSON-formatted
+                            const data = JSON.parse(text);
+                            return data;
+                        } catch (e) {
+                            // If it's not JSON, log and return HTML content (for debugging)
+                            console.error("Response is not JSON. HTML content received:", text);
+                            return { error: "HTML response received instead of JSON" };
+                        }
+                    });
+                } else {
+                    throw new Error('Failed to fetch data');
+                }
             })
             .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                    // You can add fallback handling here if needed
+                    return;
+                }
+    
+                // If valid JSON, update the page with the image and author
                 if (data.imageUrl && data.author) {
-                    // Update background image
                     const heroElement = document.getElementById('hero');
                     heroElement.style.backgroundImage = `url('${data.imageUrl}')`;
     
-                    // Update author text
                     const authorElement = document.getElementById('author');
                     authorElement.textContent = `Screenshot taken by ${data.author}`;
                 } else {
-                    console.error('Invalid data format:', data);
+                    console.error('Invalid or incomplete data received:', data);
                 }
             })
             .catch(error => {
                 console.error('Error fetching image data:', error);
+                // You could add a fallback for the image and author in case of errors
             });
     </script>
+    
     
     
     
