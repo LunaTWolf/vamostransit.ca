@@ -67,6 +67,7 @@ nav a:hover {
     z-index: 1;
     text-align: center; /* Center the text */
     width: 100%; /* Ensure the text width takes up the full available width */
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 /* For larger screens */
