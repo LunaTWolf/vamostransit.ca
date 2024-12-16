@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAMOS Transit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://vamostransit.ca/style.css">
+    <link rel="icon" href="https://vamostransit.ca/vamos.png">
+    <link rel="shortcut icon" href="https://vamostransit.ca/favicon.ico">
+    <!-- Basic Metadata -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="VAMOS Transit - ">
+    <meta name="description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
+    <meta name="author" content="VAMOS Transit">
+    <meta name="keywords" content="Transit, Caledonia, VAMOS Transit, Public Transport, Cayuga, Roblox">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="VAMOS Transit - ">
+    <meta property="og:description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
+    <meta property="og:image" content="https://vamostransit.ca/defaultwide.png"> <!-- Replace with your image URL -->
+    <meta property="og:url" content="https://vamostransit.ca">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="VAMOS Transit">
+
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VAMOS Transit - ">
+    <meta name="twitter:description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
+    <meta name="twitter:image" content="https://vamostransit.ca/defaultwide.png"> <!-- Replace with your image URL -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGJXZSHTFY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-FGJXZSHTFY');
+    </script>
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+    <div id="header-container"></div>
+    <script>
+        fetch('https://vamostransit.ca/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+    </script>
+    
+    <div class="hero" id="hero">
+        <div class="hero-text">
+            <center><h2><span>Route Stop Lists</span></h2></center>
+            <h5 id="author" style="position: absolute; bottom: 0; left: 0; padding-left: 10px;"></h5>
+        </div>
+    </div>
+    
+    <script>
+        // Function to fetch JSON data and update the hero section
+        function getRandomImage() {
+            // Fetch the JSON data from the file
+            fetch('https://vamostransit.ca/autoimagerotation/images.json')
+                .then(response => response.json())
+                .then(imagesData => {
+                    // Get the total number of images from the 'count' property
+                    const totalImages = imagesData.count;
+    
+                    // Generate a random image id between 1 and the total number of images
+                    const randomId = Math.floor(Math.random() * totalImages) + 1;
+                    const image = imagesData[randomId];
+    
+                    // Update the background image and author
+                    const hero = document.getElementById('hero');
+                    hero.style.backgroundPosition = 'center';
+                    hero.style.backgroundImage = `url('https://vamostransit.ca/autoimagerotation/images/${randomId}.${image.format}')`;
+    
+                    const authorElement = document.getElementById('author');
+                    authorElement.textContent = `Screenshot taken by ${image.author}`;
+                })
+                .catch(error => console.error('Error fetching image data:', error));
+        }
+    
+        // Run the function on page load
+        window.onload = getRandomImage;
+    </script>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 1em;
+        font-family: Arial, sans-serif;
+        text-align: left;
+    }
+
+    table th, table td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #f4f4f4;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    table img {
+        max-width: 100px;
+        height: auto;
+        display: block;
+        margin: auto;
+    }
+
+    #noResults {
+        display: none;
+        color: red;
+        font-weight: bold;
+    }
+</style>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Stop #</th>
+                <th>Primary Street</th>
+                <th>Cross Street</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>1-1</th>
+                <th>Caledonia Terminal</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>1-2</th>
+                <th>Jaguar Valley Dr</th>
+                <th>Miley Rd</th>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="content" style="flex: 1;"></div>
+    <footer>
+        <div class="footer-content">
+            <h4 style="margin-bottom: 2px;">"vamostransit.ca" is not owned by or affiliated with Vamos Transit Simulator.</h4>
+        </div>
+    </footer>
+    <div id="cookie-banner" style="
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #333;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+    font-size: 14px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    ">
+    <span style="margin-right: 20px;">We use cookies to improve your experience on our site. By using our site, you agree to our use of cookies. 
+    </span>
+    <button id="cookie-accept" style="
+        background: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 14px;
+        border-radius: 5px;
+    ">Accept</button>
+    </div>
+
+    <script>
+    // Cookie banner logic
+    document.addEventListener("DOMContentLoaded", function () {
+        const cookieBanner = document.getElementById("cookie-banner");
+        const acceptButton = document.getElementById("cookie-accept");
+
+        // Check if cookie consent is already given
+        const isCookieAccepted = document.cookie.split("; ").find(row => row.startsWith("cookieConsent="));
+
+        if (!isCookieAccepted) {
+        cookieBanner.style.display = "flex"; // Show the banner if consent is not given
+        cookieBanner.style.justifyContent = "center";
+        cookieBanner.style.alignItems = "center";
+        }
+
+        // Handle Accept button click
+        acceptButton.addEventListener("click", function () {
+        document.cookie = "cookieConsent=true; path=/; max-age=" + 60 * 60 * 24 * 365; // Set cookie for 1 year
+        cookieBanner.style.display = "none"; // Hide the banner
+        });
+    });
+    </script>
+</body>
+</html>
