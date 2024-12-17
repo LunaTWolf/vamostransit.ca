@@ -76,7 +76,7 @@
                 <input type="text" class="form-control" id="driver" name="driver">
             </div>
             <div class="mb-3">
-                <label for="initialStartTime" class="form-label">Initial Start Time (24-hour HH:MM)</label>
+                <label for="initialStartTime" class="form-label">Initial Start Time (12-hour HH:MM PM/AM)</label>
                 <input type="time" class="form-control" id="initialStartTime" name="initialStartTime">
             </div>
             <div class="mb-3">
@@ -188,31 +188,31 @@
                     if (!initialTime) return '';
 
                     let [initialHour, initialMinute] = initialTime.split(":").map(Number);
-                    let [runtimeMinutes, runtimeSeconds] = option.runtime.split(":").map(Number);
+                    let departureHour = initialHour;
+                    let departureMinute = initialMinute;
 
-                    // Round the seconds
-                    if (runtimeSeconds >= 30) {
-                        runtimeMinutes += 1; // Round up to next minute
+                    if (order === 0) {
+                        return `${String(departureHour).padStart(2, '0')}:${String(departureMinute).padStart(2, '0')}`;
+                    } else {
+                        const previousPattern = options.find(opt => opt.id === selectedItems[order - 1]);
+                        const [runtimeMinutes, runtimeSeconds] = previousPattern.runtime.split(":").map(Number);
+
+                        // Round the seconds
+                        const roundedMinutes = runtimeSeconds >= 30 ? runtimeMinutes + 1 : runtimeMinutes;
+
+                        departureMinute += roundedMinutes;
+                        while (departureMinute >= 60) {
+                            departureMinute -= 60;
+                            departureHour += 1;
+                        }
+
+                        return `${String(departureHour).padStart(2, '0')}:${String(departureMinute).padStart(2, '0')}`;
                     }
-
-                    // Add runtime to the initial start time
-                    let departureTimeMinute = initialMinute + runtimeMinutes;
-                    let departureTimeHour = initialHour + Math.floor(departureTimeMinute / 60);
-                    departureTimeMinute = departureTimeMinute % 60;
-
-                    // Increment the hour if necessary
-                    if (departureTimeHour >= 24) {
-                        departureTimeHour = departureTimeHour % 24;
-                    }
-
-                    // Return formatted time (HH:MM)
-                    return `${String(departureTimeHour).padStart(2, '0')}:${String(departureTimeMinute).padStart(2, '0')}`;
                 }
 
                 // Update the start times input based on selections
                 function updateStartTimes() {
                     const departureTimes = selectedItems.map((itemId, index) => {
-                        const option = options.find(opt => opt.id === itemId);
                         return calculateDepartureTime(index);
                     });
 
