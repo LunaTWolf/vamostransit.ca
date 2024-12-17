@@ -1,132 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Custom Multi-Select Dropdown</title>
-  <style>
-    /* Dropdown Container */
-    .dropdown-container {
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      max-width: 400px;
-      padding: 5px;
-      font-family: Arial, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paddle Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Dropdown Container */
+        .dropdown-container {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            max-width: 100%;
+            padding: 5px;
+            font-family: Arial, sans-serif;
+        }
 
-    /* Dropdown Item */
-    .dropdown-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px;
-      cursor: pointer;
-      user-select: none;
-    }
+        /* Dropdown Item */
+        .dropdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+            user-select: none;
+        }
 
-    .dropdown-item:hover {
-      background-color: #f0f0f0;
-    }
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
 
-    /* Selected Item */
-    .dropdown-item.selected {
-      background-color: #007bff;
-      color: white;
-    }
+        /* Selected Item */
+        .dropdown-item.selected {
+            background-color: #007bff;
+            color: white;
+        }
 
-    .option-left {
-      font-size: 1.5em;
-      font-weight: bold;
-      margin-right: 10px;
-    }
+        .option-left {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-right: 10px;
+        }
 
-    .option-right {
-      display: flex;
-      flex-direction: column;
-    }
+        .option-right {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
 
-    .option-title {
-      font-weight: bold;
-    }
+        .option-title {
+            font-weight: bold;
+        }
 
-    .option-runtime {
-      font-size: 0.9em;
-      color: lightgray;
-    }
-  </style>
+        .option-runtime {
+            font-size: 0.9em;
+            color: lightgray;
+        }
+
+        .option-order {
+            margin-left: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+    </style>
 </head>
 <body>
-  <form id="myForm">
-    <!-- Custom Multi-Select Dropdown -->
-    <label for="dropdown">Select Patterns:</label>
-    <div id="dropdown" class="dropdown-container">
-      <!-- Items will be dynamically added here -->
+    <div class="container mt-5">
+        <h1 class="mb-4">Schedule Generator</h1>
+        <form method="GET" action="tablet.php">
+            <div class="mb-3">
+                <label for="block" class="form-label">Block #</label>
+                <input type="text" class="form-control" id="block" name="block">
+            </div>
+            <div class="mb-3">
+                <label for="driver" class="form-label">Driver #</label>
+                <input type="text" class="form-control" id="driver" name="driver">
+            </div>
+            <div class="mb-3">
+                <label for="patternids" class="form-label">
+                    <a href="https://docs.google.com/document/d/1w9LADWKKLGdQQpBDr56cmNX7QvB4l8uJa6sb_585qSE/edit?usp=sharing">BRILLIANT Pattern IDs separated by commas</a>
+                </label>
+                <!-- Custom Multi-Select Dropdown -->
+                <div id="dropdown" class="dropdown-container">
+                    <!-- Items will be dynamically added here -->
+                </div>
+                <!-- Hidden Input to hold the text value -->
+                <input type="hidden" id="patternids" name="patternids" value="">
+            </div>
+            <div class="mb-3">
+                <label for="starttimes" class="form-label">For each pattern, First Stop Departure Time in 24hour HH:MM format, separated by commas</label>
+                <input type="text" class="form-control" id="starttimes" name="starttimes">
+            </div>
+            <button type="submit" class="btn btn-primary">Generate</button>
+        </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const dropdown = document.getElementById("dropdown");
+            const hiddenInput = document.getElementById("patternids");
 
-    <!-- Hidden Input to hold the text value -->
-    <input type="hidden" id="patternids" name="patternids" value="">
+            // Predefined options
+            const options = [
+                { id: "0-depot-cale", name: "Deadhead from Caledonia Depot to Caledonia Term", runtime: "4:00 minutes" },
+                { id: "0-cale-depot", name: "Deadhead from Caledonia Term to Caledonia Depot", runtime: "4:00 minutes" },
+                { id: "1hwypr", name: "Caledonia Term to HWY 417 P&R", runtime: "13:30 minutes" },
+                { id: "1cale", name: "HWY 417 P&R to Caledonia Term", runtime: "11:59 minutes" }
+            ];
 
-    <!-- Submit Button -->
-    <button type="submit">Submit</button>
-  </form>
+            // Store selected items
+            const selectedItems = [];
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const dropdown = document.getElementById("dropdown");
-      const hiddenInput = document.getElementById("patternids");
+            // Populate dropdown
+            options.forEach((option) => {
+                const item = document.createElement("div");
+                item.className = "dropdown-item";
+                item.dataset.value = option.id; // Store the value
 
-      // Predefined options
-      const options = [
-        { id: "1hwypr", name: "Caledonia Term to HWY 417 P&R", runtime: "13:30 minutes" },
-        { id: "1cale", name: "Caledonia Term to Caledonia Mall", runtime: "15:45 minutes" },
-        { id: "2hw417", name: "HWY 417 to Caledonia Term", runtime: "14:00 minutes" }
-      ];
+                // Custom HTML for each option
+                item.innerHTML = `
+                    <div class="option-left">${option.id.charAt(0)}</div>
+                    <div class="option-right">
+                        <div class="option-title">${option.name}</div>
+                        <div class="option-runtime">Total run time: ${option.runtime}</div>
+                    </div>
+                    <div class="option-order"></div>
+                `;
 
-      // Store selected items
-      const selectedItems = new Set();
+                const orderDisplay = item.querySelector(".option-order");
 
-      // Populate dropdown
-      options.forEach((option) => {
-        const item = document.createElement("div");
-        item.className = "dropdown-item";
-        item.dataset.value = option.id; // Store the value
+                // Add click event for selection/deselection
+                item.addEventListener("click", function () {
+                    const index = selectedItems.indexOf(option.id);
 
-        // Custom HTML for each option
-        item.innerHTML = `
-          <div class="option-left">${option.id.charAt(0)}</div>
-          <div class="option-right">
-            <div class="option-title">${option.name}</div>
-            <div class="option-runtime">Total run time: ${option.runtime}</div>
-          </div>
-        `;
+                    if (index > -1) {
+                        // Deselect item
+                        selectedItems.splice(index, 1);
+                        item.classList.remove("selected");
+                    } else {
+                        // Select item
+                        selectedItems.push(option.id);
+                        item.classList.add("selected");
+                    }
 
-        // Add click event for selection/deselection
-        item.addEventListener("click", function () {
-          if (selectedItems.has(option.id)) {
-            selectedItems.delete(option.id); // Deselect
-            item.classList.remove("selected");
-          } else {
-            selectedItems.add(option.id); // Select
-            item.classList.add("selected");
-          }
+                    // Update order display and hidden input
+                    updateSelection();
+                });
 
-          // Update hidden input with comma-separated values
-          hiddenInput.value = Array.from(selectedItems).join(", ");
+                dropdown.appendChild(item);
+
+                // Update function to reorder and display selection
+                function updateSelection() {
+                    const allItems = document.querySelectorAll(".dropdown-item");
+                    allItems.forEach((el) => {
+                        const value = el.dataset.value;
+                        const order = selectedItems.indexOf(value);
+                        const orderDisplay = el.querySelector(".option-order");
+                        if (order > -1) {
+                            orderDisplay.textContent = `${order + 1}${getOrdinalSuffix(order + 1)}`;
+                        } else {
+                            orderDisplay.textContent = "";
+                        }
+                    });
+
+                    // Update hidden input with comma-separated values
+                    hiddenInput.value = selectedItems.join(", ");
+                }
+
+                // Helper function to get ordinal suffix
+                function getOrdinalSuffix(n) {
+                    const j = n % 10, k = n % 100;
+                    if (j === 1 && k !== 11) return "st";
+                    if (j === 2 && k !== 12) return "nd";
+                    if (j === 3 && k !== 13) return "rd";
+                    return "th";
+                }
+            });
         });
-
-        dropdown.appendChild(item);
-      });
-
-      // Form submission handler
-      document.getElementById("myForm").addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent actual submission for demo
-        console.log("Final Submitted Value:", hiddenInput.value);
-        alert("Submitted Value: " + hiddenInput.value);
-
-        // Allow form submission if needed
-        // this.submit();
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>
