@@ -196,7 +196,7 @@
                         return `${String(departureHour).padStart(2, '0')}:${String(departureMinute).padStart(2, '0')}`;
                     } else {
                         const previousPattern = options.find(opt => opt.id === selectedItems[order - 1]);
-                        const [runtimeMinutes, runtimeSeconds] = previousPattern.runtime.split(":").map(Number);
+                        const [runtimeMinutes] = previousPattern.runtime.split(":").map(Number);
     
                         // Add the runtime minutes and then add 1 minute for the next departure
                         departureMinute += runtimeMinutes + 1;
@@ -223,11 +223,5 @@
             });
         });
     </script>
-    
-    
-    
-    
-    
-           
 </body>
 </html>
