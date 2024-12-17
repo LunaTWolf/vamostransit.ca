@@ -198,17 +198,13 @@
                         const previousPattern = options.find(opt => opt.id === selectedItems[order - 1]);
                         const [runtimeMinutes, runtimeSeconds] = previousPattern.runtime.split(":").map(Number);
     
-                        // Round seconds and calculate total minutes
-                        const totalRuntimeMinutes = runtimeMinutes + Math.round(runtimeSeconds / 60);
+                        // Calculate total runtime minutes and seconds
+                        const totalRuntimeMinutes = runtimeMinutes + (runtimeSeconds / 60);
     
                         // Add runtime to departure time
-                        departureMinute += totalRuntimeMinutes;
-    
-                        // Handle minute overflow and hour adjustments
-                        while (departureMinute >= 60) {
-                            departureMinute -= 60;
-                            departureHour += 1;
-                        }
+                        departureMinute += Math.floor(totalRuntimeMinutes);
+                        departureHour += Math.floor(departureMinute / 60);  // Add any full hours from minutes overflow
+                        departureMinute = departureMinute % 60;  // Ensure minute stays within bounds
     
                         // Add 1 minute to every start time excluding the first one
                         if (order > 0) {
@@ -234,6 +230,6 @@
                 }
             });
         });
-    </script>    
+    </script>        
 </body>
 </html>
