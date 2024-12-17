@@ -104,7 +104,7 @@
             const hiddenInput = document.getElementById("patternids");
             const startTimesInput = document.getElementById("starttimes");
             const initialStartTimeInput = document.getElementById("initialStartTime");
-
+    
             // Predefined options
             const options = [
                 { id: "0-depot-cale", name: "Deadhead from Caledonia Depot to Caledonia Term", runtime: "4:00" },
@@ -112,16 +112,16 @@
                 { id: "1hwypr", name: "Caledonia Term to HWY 417 P&R", runtime: "13:30" },
                 { id: "1cale", name: "HWY 417 P&R to Caledonia Term", runtime: "12:00" }
             ];
-
+    
             // Store selected items
             const selectedItems = [];
-
+    
             // Populate dropdown
             options.forEach((option) => {
                 const item = document.createElement("div");
                 item.className = "dropdown-item";
                 item.dataset.value = option.id; // Store the value
-
+    
                 // Custom HTML for each option
                 item.innerHTML = `
                     <div class="option-left">${option.id.charAt(0)}</div>
@@ -131,13 +131,13 @@
                     </div>
                     <div class="option-order"></div>
                 `;
-
+    
                 const orderDisplay = item.querySelector(".option-order");
-
+    
                 // Add click event for selection/deselection
                 item.addEventListener("click", function () {
                     const index = selectedItems.indexOf(option.id);
-
+    
                     if (index > -1) {
                         // Deselect item
                         selectedItems.splice(index, 1);
@@ -147,13 +147,13 @@
                         selectedItems.push(option.id);
                         item.classList.add("selected");
                     }
-
+    
                     // Update order display and hidden input
                     updateSelection();
                 });
-
+    
                 dropdown.appendChild(item);
-
+    
                 // Update function to reorder and display selection
                 function updateSelection() {
                     const allItems = document.querySelectorAll(".dropdown-item");
@@ -167,12 +167,12 @@
                             orderDisplay.textContent = "";
                         }
                     });
-
+    
                     // Update hidden input with comma-separated values
                     hiddenInput.value = selectedItems.join(", ");
                     updateStartTimes();
                 }
-
+    
                 // Helper function to get ordinal suffix
                 function getOrdinalSuffix(n) {
                     const j = n % 10, k = n % 100;
@@ -181,31 +181,35 @@
                     if (j === 3 && k !== 13) return "rd";
                     return "th";
                 }
-
+    
                 // Calculate the departure time based on the runtime and initial start time
                 function calculateDepartureTime(order) {
                     const initialTime = initialStartTimeInput.value;
                     if (!initialTime) return '';
-
+    
                     let [initialHour, initialMinute] = initialTime.split(":").map(Number);
                     let departureHour = initialHour;
                     let departureMinute = initialMinute;
-
+    
                     if (order === 0) {
+                        // For the first pattern, use the initial start time
                         return `${String(departureHour).padStart(2, '0')}:${String(departureMinute).padStart(2, '0')}`;
                     } else {
                         const previousPattern = options.find(opt => opt.id === selectedItems[order - 1]);
                         const [runtimeMinutes, runtimeSeconds] = previousPattern.runtime.split(":").map(Number);
-
-                        // Round the seconds
-                        const roundedMinutes = runtimeSeconds >= 30 ? runtimeMinutes + 1 : runtimeMinutes;
-
-                        departureMinute += roundedMinutes;
+    
+                        // Round seconds and calculate total minutes
+                        const totalRuntimeMinutes = runtimeMinutes + Math.round(runtimeSeconds / 60);
+    
+                        // Add runtime to departure time
+                        departureMinute += totalRuntimeMinutes;
+    
+                        // Handle minute overflow and hour adjustments
                         while (departureMinute >= 60) {
                             departureMinute -= 60;
                             departureHour += 1;
                         }
-
+    
                         // Add 1 minute to every start time excluding the first one
                         if (order > 0) {
                             departureMinute += 1;
@@ -214,22 +218,22 @@
                                 departureHour += 1;
                             }
                         }
-
+    
                         return `${String(departureHour).padStart(2, '0')}:${String(departureMinute).padStart(2, '0')}`;
                     }
                 }
-
+    
                 // Update the start times input based on selections
                 function updateStartTimes() {
                     const departureTimes = selectedItems.map((itemId, index) => {
                         return calculateDepartureTime(index);
                     });
-
+    
                     // Update start times input field with comma-separated values
                     startTimesInput.value = departureTimes.join(", ");
                 }
             });
         });
-    </script>
+    </script>    
 </body>
 </html>
