@@ -158,14 +158,13 @@
 
                 let [hours, minutes] = startTime.split(":").map(Number);
                 let totalMinutes = hours * 60 + minutes;
-                const firstItemRuntime = selectedItems[0]?.runtime || 0;
                 const times = [];
 
-                selectedItems.forEach((item, index) => {
-                    totalMinutes += index === 0 ? 0 : item.runtime; // Skip first runtime addition
-                    const hh = String(Math.floor((totalMinutes - firstItemRuntime) / 60)).padStart(2, '0');
-                    const mm = String((totalMinutes - firstItemRuntime) % 60).padStart(2, '0');
+                selectedItems.forEach((item) => {
+                    const hh = String(Math.floor(totalMinutes / 60)).padStart(2, '0');
+                    const mm = String(totalMinutes % 60).padStart(2, '0');
                     times.push(`${hh}:${mm}`);
+                    totalMinutes += item.runtime;
                 });
 
                 departureTimesDiv.textContent = times.join(", ");
