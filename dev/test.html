@@ -94,6 +94,7 @@
             <div class="mb-3">
                 <label class="form-label">Pattern Departures:</label>
                 <div id="departureTimes" class="form-control" style="height:auto; min-height:2em;"></div>
+                <input type="hidden" id="starttimes" name="starttimes" value="">
             </div>
 
             <button type="submit" class="btn btn-primary">Generate</button>
@@ -106,12 +107,13 @@
             const hiddenInput = document.getElementById("patternids");
             const initialTimeInput = document.getElementById("initialTime");
             const departureTimesDiv = document.getElementById("departureTimes");
+            const starttimesInput = document.getElementById("starttimes");
 
             // Predefined options with runtime in minutes
             const options = [
                 { id: "0-depot-cale", name: "Deadhead from Caledonia Depot to Caledonia Term", runtime: 4 },
                 { id: "0-cale-depot", name: "Deadhead from Caledonia Term to Caledonia Depot", runtime: 4 },
-                { id: "1hwypr", name: "Caledonia Term to HWY 417 P&R", runtime: 14 },
+                { id: "1hwypr", name: "Caledonia Term to HWY 417 P&R", runtime: 12 },
                 { id: "1cale", name: "HWY 417 P&R to Caledonia Term", runtime: 12 }
             ];
 
@@ -167,7 +169,9 @@
                     totalMinutes += item.runtime;
                 });
 
-                departureTimesDiv.textContent = times.join(", ");
+                const timesString = times.join(", ");
+                departureTimesDiv.textContent = timesString;
+                starttimesInput.value = timesString;
             }
 
             initialTimeInput.addEventListener("input", updateDepartureTimes);
