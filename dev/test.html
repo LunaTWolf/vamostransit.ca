@@ -198,7 +198,7 @@
                         const previousPattern = options.find(opt => opt.id === selectedItems[order - 1]);
                         const [runtimeMinutes, runtimeSeconds] = previousPattern.runtime.split(":").map(Number);
     
-                        // Add runtime minutes (first two digits) + 1 minute
+                        // Add runtime minutes (first two digits) + 1 minute for the next departure
                         departureMinute += runtimeMinutes + 1;
     
                         // Ensure overflow of minutes to hours is handled
@@ -223,6 +223,7 @@
             });
         });
     </script>
+    
     
     
     
