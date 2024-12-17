@@ -3,16 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Multi-Select Dropdown</title>
+  <title>Custom Multi-Select Dropdown</title>
   <style>
-    /* Style for options inside the dropdown */
-    .option-container {
+    /* Dropdown Container */
+    .dropdown-container {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      max-width: 400px;
+      padding: 5px;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Dropdown Item */
+    .dropdown-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 5px;
-      font-family: Arial, sans-serif;
-      white-space: normal;
+      padding: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    /* Selected Item */
+    .dropdown-item.selected {
+      background-color: #007bff;
+      color: white;
     }
 
     .option-left {
@@ -32,17 +51,17 @@
 
     .option-runtime {
       font-size: 0.9em;
-      color: gray;
+      color: lightgray;
     }
   </style>
 </head>
 <body>
   <form id="myForm">
-    <!-- Dropdown List -->
-    <label for="patternDropdown">Select Patterns:</label>
-    <select id="patternDropdown" name="patternDropdown" class="form-control" multiple>
-      <!-- Options will be dynamically added here -->
-    </select>
+    <!-- Custom Multi-Select Dropdown -->
+    <label for="dropdown">Select Patterns:</label>
+    <div id="dropdown" class="dropdown-container">
+      <!-- Items will be dynamically added here -->
+    </div>
 
     <!-- Hidden Input to hold the text value -->
     <input type="hidden" id="patternids" name="patternids" value="">
@@ -53,8 +72,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Dropdown element and hidden input
-      const dropdown = document.getElementById("patternDropdown");
+      const dropdown = document.getElementById("dropdown");
       const hiddenInput = document.getElementById("patternids");
 
       // Predefined options
@@ -64,36 +82,49 @@
         { id: "2hw417", name: "HWY 417 to Caledonia Term", runtime: "14:00 minutes" }
       ];
 
-      // Populate the dropdown list with styled options
-      options.forEach((option) => {
-        const newOption = document.createElement("option");
+      // Store selected items
+      const selectedItems = new Set();
 
-        // Use custom HTML to style the dropdown content
-        newOption.innerHTML = `
-          <div class="option-container">
-            <div class="option-left">${option.id.charAt(0)}</div>
-            <div class="option-right">
-              <div class="option-title">${option.name}</div>
-              <div class="option-runtime">Total run time: ${option.runtime}</div>
-            </div>
+      // Populate dropdown
+      options.forEach((option) => {
+        const item = document.createElement("div");
+        item.className = "dropdown-item";
+        item.dataset.value = option.id; // Store the value
+
+        // Custom HTML for each option
+        item.innerHTML = `
+          <div class="option-left">${option.id.charAt(0)}</div>
+          <div class="option-right">
+            <div class="option-title">${option.name}</div>
+            <div class="option-runtime">Total run time: ${option.runtime}</div>
           </div>
         `;
-        newOption.value = option.id; // Set the value of the option
-        dropdown.appendChild(newOption);
+
+        // Add click event for selection/deselection
+        item.addEventListener("click", function () {
+          if (selectedItems.has(option.id)) {
+            selectedItems.delete(option.id); // Deselect
+            item.classList.remove("selected");
+          } else {
+            selectedItems.add(option.id); // Select
+            item.classList.add("selected");
+          }
+
+          // Update hidden input with comma-separated values
+          hiddenInput.value = Array.from(selectedItems).join(", ");
+        });
+
+        dropdown.appendChild(item);
       });
 
-      // On form submission, convert selections into text input format
+      // Form submission handler
       document.getElementById("myForm").addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent actual submission for demo purposes
-
-        const selectedValues = Array.from(dropdown.selectedOptions).map((option) => option.value);
-        hiddenInput.value = selectedValues.join(", "); // Convert to comma-separated string
-
-        // Log the result for demonstration
+        event.preventDefault(); // Prevent actual submission for demo
         console.log("Final Submitted Value:", hiddenInput.value);
         alert("Submitted Value: " + hiddenInput.value);
 
-        // Here, you can let the form proceed by removing the preventDefault or submitting via AJAX.
+        // Allow form submission if needed
+        // this.submit();
       });
     });
   </script>
