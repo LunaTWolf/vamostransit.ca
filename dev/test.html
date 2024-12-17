@@ -201,8 +201,8 @@
                         // Add runtime to departure time
                         departureMinute += runtimeMinutes;
     
-                        // Round seconds to the nearest minute (if rounding needed, add an additional minute)
-                        if (runtimeSeconds > 30) {
+                        // Round seconds to the nearest minute
+                        if (runtimeSeconds >= 30) {
                             departureMinute += 1;
                         }
     
@@ -237,6 +237,7 @@
             });
         });
     </script>
+    
            
 </body>
 </html>
