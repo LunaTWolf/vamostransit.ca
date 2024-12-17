@@ -158,7 +158,7 @@
 
                 let [hours, minutes] = startTime.split(":").map(Number);
                 let totalMinutes = hours * 60 + minutes;
-                const times = [startTime];
+                const times = [];
 
                 selectedItems.forEach((item) => {
                     totalMinutes += item.runtime;
