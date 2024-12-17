@@ -76,7 +76,7 @@
                 <input type="text" class="form-control" id="driver" name="driver">
             </div>
             <div class="mb-3">
-                <label for="initialStartTime" class="form-label">Initial Start Time (12-hour HH:MM PM/AM)</label>
+                <label for="initialStartTime" class="form-label">Initial Start Time (24-hour HH:MM)</label>
                 <input type="time" class="form-control" id="initialStartTime" name="initialStartTime">
             </div>
             <div class="mb-3">
@@ -204,6 +204,15 @@
                         while (departureMinute >= 60) {
                             departureMinute -= 60;
                             departureHour += 1;
+                        }
+
+                        // Add 1 minute to every start time excluding the first one
+                        if (order > 0) {
+                            departureMinute += 1;
+                            if (departureMinute >= 60) {
+                                departureMinute = 0;
+                                departureHour += 1;
+                            }
                         }
 
                         return `${String(departureHour).padStart(2, '0')}:${String(departureMinute).padStart(2, '0')}`;
