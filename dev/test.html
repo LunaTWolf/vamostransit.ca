@@ -76,6 +76,10 @@
                 <input type="text" class="form-control" id="driver" name="driver">
             </div>
             <div class="mb-3">
+                <label for="initialStartTime" class="form-label">Initial Start Time (24-hour HH:MM)</label>
+                <input type="time" class="form-control" id="initialStartTime" name="initialStartTime">
+            </div>
+            <div class="mb-3">
                 <label for="patternids" class="form-label">
                     <a href="https://docs.google.com/document/d/1w9LADWKKLGdQQpBDr56cmNX7QvB4l8uJa6sb_585qSE/edit?usp=sharing">BRILLIANT Pattern IDs separated by commas</a>
                 </label>
@@ -88,7 +92,7 @@
             </div>
             <div class="mb-3">
                 <label for="starttimes" class="form-label">For each pattern, First Stop Departure Time in 24hour HH:MM format, separated by commas</label>
-                <input type="text" class="form-control" id="starttimes" name="starttimes">
+                <input type="text" class="form-control" id="starttimes" name="starttimes" readonly>
             </div>
             <button type="submit" class="btn btn-primary">Generate</button>
         </form>
@@ -98,13 +102,15 @@
         document.addEventListener("DOMContentLoaded", function () {
             const dropdown = document.getElementById("dropdown");
             const hiddenInput = document.getElementById("patternids");
+            const startTimesInput = document.getElementById("starttimes");
+            const initialStartTimeInput = document.getElementById("initialStartTime");
 
             // Predefined options
             const options = [
-                { id: "0-depot-cale", name: "Deadhead from Caledonia Depot to Caledonia Term", runtime: "4:00 minutes" },
-                { id: "0-cale-depot", name: "Deadhead from Caledonia Term to Caledonia Depot", runtime: "4:00 minutes" },
-                { id: "1hwypr", name: "Caledonia Term to HWY 417 P&R", runtime: "13:30 minutes" },
-                { id: "1cale", name: "HWY 417 P&R to Caledonia Term", runtime: "11:59 minutes" }
+                { id: "0-depot-cale", name: "Deadhead from Caledonia Depot to Caledonia Term", runtime: "4:00" },
+                { id: "0-cale-depot", name: "Deadhead from Caledonia Term to Caledonia Depot", runtime: "4:00" },
+                { id: "1hwypr", name: "Caledonia Term to HWY 417 P&R", runtime: "13:30" },
+                { id: "1cale", name: "HWY 417 P&R to Caledonia Term", runtime: "12:00" }
             ];
 
             // Store selected items
@@ -156,7 +162,7 @@
                         const order = selectedItems.indexOf(value);
                         const orderDisplay = el.querySelector(".option-order");
                         if (order > -1) {
-                            orderDisplay.textContent = `${order + 1}${getOrdinalSuffix(order + 1)}`;
+                            orderDisplay.textContent = `${order + 1}${getOrdinalSuffix(order + 1)}: ${calculateDepartureTime(order)}`;
                         } else {
                             orderDisplay.textContent = "";
                         }
@@ -164,6 +170,7 @@
 
                     // Update hidden input with comma-separated values
                     hiddenInput.value = selectedItems.join(", ");
+                    updateStartTimes();
                 }
 
                 // Helper function to get ordinal suffix
@@ -173,6 +180,44 @@
                     if (j === 2 && k !== 12) return "nd";
                     if (j === 3 && k !== 13) return "rd";
                     return "th";
+                }
+
+                // Calculate the departure time based on the runtime and initial start time
+                function calculateDepartureTime(order) {
+                    const initialTime = initialStartTimeInput.value;
+                    if (!initialTime) return '';
+
+                    let [initialHour, initialMinute] = initialTime.split(":").map(Number);
+                    let [runtimeMinutes, runtimeSeconds] = option.runtime.split(":").map(Number);
+
+                    // Round the seconds
+                    if (runtimeSeconds >= 30) {
+                        runtimeMinutes += 1; // Round up to next minute
+                    }
+
+                    // Add runtime to the initial start time
+                    let departureTimeMinute = initialMinute + runtimeMinutes;
+                    let departureTimeHour = initialHour + Math.floor(departureTimeMinute / 60);
+                    departureTimeMinute = departureTimeMinute % 60;
+
+                    // Increment the hour if necessary
+                    if (departureTimeHour >= 24) {
+                        departureTimeHour = departureTimeHour % 24;
+                    }
+
+                    // Return formatted time (HH:MM)
+                    return `${String(departureTimeHour).padStart(2, '0')}:${String(departureTimeMinute).padStart(2, '0')}`;
+                }
+
+                // Update the start times input based on selections
+                function updateStartTimes() {
+                    const departureTimes = selectedItems.map((itemId, index) => {
+                        const option = options.find(opt => opt.id === itemId);
+                        return calculateDepartureTime(index);
+                    });
+
+                    // Update start times input field with comma-separated values
+                    startTimesInput.value = departureTimes.join(", ");
                 }
             });
         });
