@@ -105,7 +105,7 @@
             const startTimesInput = document.getElementById("starttimes");
             const initialStartTimeInput = document.getElementById("initialStartTime");
     
-            // Predefined options
+            // Predefined options with runtime in MM:SS format
             const options = [
                 { id: "0-depot-cale", name: "Deadhead from Caledonia Depot to Caledonia Term", runtime: "4:00" },
                 { id: "0-cale-depot", name: "Deadhead from Caledonia Term to Caledonia Depot", runtime: "4:00" },
@@ -182,7 +182,7 @@
                     return "th";
                 }
     
-                // Calculate the departure time based on the runtime and initial start time
+                // Function to calculate the departure time
                 function calculateDepartureTime(order) {
                     const initialTime = initialStartTimeInput.value;
                     if (!initialTime) return '';
@@ -198,10 +198,10 @@
                         const previousPattern = options.find(opt => opt.id === selectedItems[order - 1]);
                         const [runtimeMinutes, runtimeSeconds] = previousPattern.runtime.split(":").map(Number);
     
-                        // Add runtime minutes (first two digits) + 1 minute for the next departure
+                        // Add the runtime minutes and then add 1 minute for the next departure
                         departureMinute += runtimeMinutes + 1;
     
-                        // Ensure overflow of minutes to hours is handled
+                        // Ensure minutes overflow correctly
                         while (departureMinute >= 60) {
                             departureMinute -= 60;
                             departureHour += 1;
@@ -223,6 +223,7 @@
             });
         });
     </script>
+    
     
     
     
