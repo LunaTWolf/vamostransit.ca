@@ -154,16 +154,17 @@
 
             function updateDepartureTimes() {
                 const startTime = initialTimeInput.value;
-                if (!startTime) return;
+                if (!startTime || selectedItems.length === 0) return;
 
                 let [hours, minutes] = startTime.split(":").map(Number);
                 let totalMinutes = hours * 60 + minutes;
+                const firstItemRuntime = selectedItems[0]?.runtime || 0;
                 const times = [];
 
-                selectedItems.forEach((item) => {
-                    totalMinutes += item.runtime;
-                    const hh = String(Math.floor(totalMinutes / 60)).padStart(2, '0');
-                    const mm = String(totalMinutes % 60).padStart(2, '0');
+                selectedItems.forEach((item, index) => {
+                    totalMinutes += index === 0 ? 0 : item.runtime; // Skip first runtime addition
+                    const hh = String(Math.floor((totalMinutes - firstItemRuntime) / 60)).padStart(2, '0');
+                    const mm = String((totalMinutes - firstItemRuntime) % 60).padStart(2, '0');
                     times.push(`${hh}:${mm}`);
                 });
 
