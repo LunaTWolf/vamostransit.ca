@@ -169,3 +169,32 @@ footer h4::after {
 #service-alert strong {
     color: #d9534f; /* Red color for important text */
 }
+
+/* Tooltip styling */
+.hero-tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+.hero-tooltip::after {
+  content: "This image was taken in the #in-game-pics in the VAMOS Bus Simulator discord";
+  position: absolute;
+  bottom: 150%; /* Adjust tooltip position */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+  color: #fff; /* White text */
+  padding: 8px 10px;
+  border-radius: 4px;
+  white-space: nowrap; /* Prevent text wrapping */
+  font-size: 12px;
+  opacity: 0; /* Start hidden */
+  visibility: hidden; /* Prevent interaction */
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000; /* Ensure it's on top */
+}
+
+.hero-tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
