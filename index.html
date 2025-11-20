@@ -5,9 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>VAMOS Transit</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <link rel="icon" href="https://vamostransit.ca/vamos.png">
-        <link rel="shortcut icon" href="https://vamostransit.ca/favicon.ico">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="icon" href="https://backup.vamostransit.ca/vamos.png">
+        <link rel="shortcut icon" href="https://backup.vamostransit.ca/favicon.ico">
         
         <!-- Basic Metadata -->
         <meta charset="UTF-8">
@@ -21,8 +21,8 @@
         <!-- Open Graph Metadata -->
         <meta property="og:title" content="VAMOS Transit">
         <meta property="og:description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
-        <meta property="og:image" content="https://vamostransit.ca/defaultwide.png"> <!-- Replace with your image URL -->
-        <meta property="og:url" content="https://vamostransit.ca">
+        <meta property="og:image" content="https://backup.vamostransit.ca/defaultwide.png"> <!-- Replace with your image URL -->
+        <meta property="og:url" content="https://backup.vamostransit.ca">
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="VAMOS Transit">
     
@@ -30,7 +30,7 @@
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="VAMOS Transit">
         <meta name="twitter:description" content="Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.">
-        <meta name="twitter:image" content="https://vamostransit.ca/defaultwide.png"> <!-- Replace with your image URL -->
+        <meta name="twitter:image" content="https://backup.vamostransit.ca/defaultwide.png"> <!-- Replace with your image URL -->
     
         <!-- Additional Metadata for Knowledge Panels -->
         <script type="application/ld+json">
@@ -38,17 +38,17 @@
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "VAMOS Transit",
-            "url": "https://vamostransit.ca",
-            "logo": "https://vamostransit.ca/images/index.png/",
+            "url": "https://backup.vamostransit.ca",
+            "logo": "https://backup.vamostransit.ca/images/index.png/",
             "sameAs": [
                 "https://www.roblox.com/games/15057336058/VAMOS-Transit-Simulator"
             ],
-            "image": "https://vamostransit.ca/images/index.png/",
+            "image": "https://backup.vamostransit.ca/images/index.png/",
             "description": "Discover reliable and efficient transit solutions with VAMOS Transit, serving Caledonia and surrounding areas. Your journey, made easier.",
             "contactPoint": {
                 "@type": "ContactPoint",
                 "contactType": "customer support",
-                "url": "https://vamostransit.ca/#contact"
+                "url": "https://backup.vamostransit.ca/#contact"
             }
         }
         </script>
@@ -67,7 +67,7 @@
 <body>
     <div id="header-container"></div>
     <script>
-        fetch('https://vamostransit.ca/header.html')
+        fetch('https://backup.vamostransit.ca/header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
@@ -88,7 +88,7 @@
         // Function to fetch JSON data and update the hero section
         function getRandomImage() {
             // Fetch the JSON data from the file
-            fetch('https://vamostransit.ca/autoimagerotation/images.json')
+            fetch('https://backup.vamostransit.ca/autoimagerotation/images.json')
                 .then(response => response.json())
                 .then(imagesData => {
                     // Get the total number of images from the 'count' property
@@ -101,7 +101,7 @@
                     // Update the background image and author
                     const hero = document.getElementById('hero');
                     hero.style.backgroundPosition = 'center';
-                    hero.style.backgroundImage = `url('https://vamostransit.ca/autoimagerotation/images/${randomId}.${image.format}')`;
+                    hero.style.backgroundImage = `url('https://backup.vamostransit.ca/autoimagerotation/images/${randomId}.${image.format}')`;
     
                     const authorElement = document.getElementById('author');
                     authorElement.textContent = `Screenshot taken by ${image.author}`;
@@ -214,13 +214,13 @@
         <div id="contact" class="section">
             <h3>Contact Us</h3>
             <p>Have questions or need assistance? Join our discord server <a href="https://discord.gg/ridevamos">here</a>.</p>
-            <p>Need to report an issue with the site? Email us at admin@vamostransit.ca</p>
+            <p>Need to report an issue with the site? Email us at admin@backup.vamostransit.ca</p>
         </div>
     </div>
 
     <footer>
         <div class="footer-content">
-            <h4 style="margin-bottom: 2px;">"vamostransit.ca" is not owned by or affiliated with Vamos Transit Simulator.</h4>
+            <h4 style="margin-bottom: 2px;">"backup.vamostransit.ca" is not owned by or affiliated with Vamos Transit Simulator.</h4>
         </div>
     </footer>
     <div id="cookie-banner" style="
